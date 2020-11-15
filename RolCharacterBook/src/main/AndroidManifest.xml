@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ejemplo">
+    package="com.example.RolCharacterBook">
 
     <application
         android:allowBackup="true"
@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ejemplo">
         <activity
-            android:name=".List"
+            android:name="com.example.RolCharacterBook.List"
             android:label="@string/title_activity_list"
             android:theme="@style/Theme.Ejemplo.NoActionBar"></activity>
-        <activity android:name=".Form" />
+        <activity android:name="com.example.RolCharacterBook.Form" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.example.RolCharacterBook.SplashScreen"
             android:label="@string/app_name"
             android:theme="@style/Theme.Ejemplo.NoActionBar">
             <intent-filter>

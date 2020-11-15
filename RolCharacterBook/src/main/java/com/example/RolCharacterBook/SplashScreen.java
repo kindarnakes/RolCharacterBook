@@ -1,4 +1,4 @@
-package com.example.ejemplo;
+package com.example.RolCharacterBook;
 
 import androidx.appcompat.app.AppCompatActivity;
 

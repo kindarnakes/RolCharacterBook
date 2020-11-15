@@ -1,4 +1,4 @@
-package com.example.ejemplo;
+package com.example.RolCharacterBook;
 
 import android.content.Context;
 
