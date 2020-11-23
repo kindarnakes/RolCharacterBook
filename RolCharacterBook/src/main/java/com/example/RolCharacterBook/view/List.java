@@ -1,8 +1,9 @@
-package com.example.RolCharacterBook;
+package com.example.RolCharacterBook.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.RolCharacterBook.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;

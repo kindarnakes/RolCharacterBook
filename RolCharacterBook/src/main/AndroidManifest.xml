@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ejemplo">
         <activity
-            android:name="com.example.RolCharacterBook.List"
+            android:name="com.example.RolCharacterBook.view.List"
             android:label="@string/title_activity_list"
             android:theme="@style/Theme.Ejemplo.NoActionBar"></activity>
-        <activity android:name="com.example.RolCharacterBook.Form" />
+        <activity android:name="com.example.RolCharacterBook.view.Form" />
         <activity
-            android:name="com.example.RolCharacterBook.SplashScreen"
+            android:name="com.example.RolCharacterBook.view.SplashScreen"
             android:label="@string/app_name"
             android:theme="@style/Theme.Ejemplo.NoActionBar">
             <intent-filter>

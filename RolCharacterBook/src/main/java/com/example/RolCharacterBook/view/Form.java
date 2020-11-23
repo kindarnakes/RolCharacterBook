@@ -1,4 +1,4 @@
-package com.example.RolCharacterBook;
+package com.example.RolCharacterBook.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.example.RolCharacterBook.R;
 
 public class Form extends AppCompatActivity {
 

@@ -1,10 +1,12 @@
-package com.example.RolCharacterBook;
+package com.example.RolCharacterBook.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.RolCharacterBook.R;
 
 public class SplashScreen extends AppCompatActivity {
 

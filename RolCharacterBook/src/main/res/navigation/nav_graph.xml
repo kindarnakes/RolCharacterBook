@@ -6,12 +6,12 @@
     app:startDestination="@id/list">
     <activity
         android:id="@+id/list"
-        android:name="com.example.RolCharacterBook.List"
+        android:name="com.example.RolCharacterBook.view.List"
         android:label="activity_list"
         tools:layout="@layout/activity_list" />
     <activity
         android:id="@+id/form"
-        android:name="com.example.RolCharacterBook.Form"
+        android:name="com.example.RolCharacterBook.view.Form"
         android:label="activity_form"
         tools:layout="@layout/activity_form" />
 </navigation>
