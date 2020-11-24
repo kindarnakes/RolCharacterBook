@@ -29,7 +29,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:id="@+id/strength"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -43,10 +43,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
+                android:id="@+id/dextery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/strength"
                 tools:layout_editor_absoluteX="160dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -56,12 +56,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout5"
+                android:id="@+id/constitutionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+                app:layout_constraintTop_toBottomOf="@+id/dextery">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -70,12 +70,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout6"
+                android:id="@+id/intelligence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+                app:layout_constraintTop_toBottomOf="@+id/constitutionText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -84,12 +84,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout7"
+                android:id="@+id/wisdom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+                app:layout_constraintTop_toBottomOf="@+id/intelligence">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -98,10 +98,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout9"
+                android:id="@+id/charisma"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
+                app:layout_constraintTop_toBottomOf="@+id/wisdom"
                 tools:layout_editor_absoluteX="271dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -111,23 +111,23 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/characterClass"
                 android:layout_width="836dp"
                 android:layout_height="29dp"
                 android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
+                app:layout_constraintTop_toBottomOf="@+id/charisma" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/addClass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="1dp"
                 android:text="+"
                 app:layout_constraintBottom_toTopOf="@+id/textInputLayout10"
-                app:layout_constraintEnd_toStartOf="@+id/spinner"
+                app:layout_constraintEnd_toStartOf="@+id/characterClass"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
+                app:layout_constraintTop_toBottomOf="@+id/charisma" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout10"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner">
+                app:layout_constraintTop_toBottomOf="@+id/characterClass">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -144,7 +144,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Switch
-                android:id="@+id/switch2"
+                android:id="@+id/player"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Jugador"
@@ -152,32 +152,32 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout10" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/image"
                 android:layout_width="117dp"
                 android:layout_height="124dp"
                 android:layout_marginTop="1dp"
                 android:background="@android:drawable/btn_dialog"
-                app:layout_constraintEnd_toStartOf="@+id/switch2"
+                app:layout_constraintEnd_toStartOf="@+id/player"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout10"
                 app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/clearImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="100dp"
                 android:text="Limpiar imagen"
-                app:layout_constraintEnd_toStartOf="@+id/switch2"
+                app:layout_constraintEnd_toStartOf="@+id/player"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout10" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="84dp"
@@ -187,10 +187,10 @@
                 android:text="Guardar"
                 android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/image" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/clearForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="96dp"
@@ -199,8 +199,8 @@
                 android:text="Borrar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/button4"
-                app:layout_constraintTop_toBottomOf="@+id/switch2" />
+                app:layout_constraintStart_toEndOf="@+id/save"
+                app:layout_constraintTop_toBottomOf="@+id/player" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
