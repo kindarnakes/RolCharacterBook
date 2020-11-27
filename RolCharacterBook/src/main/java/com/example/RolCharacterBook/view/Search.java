@@ -5,20 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.example.RolCharacterBook.R;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class Form extends AppCompatActivity {
+public class Search extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form);
+        setContentView(R.layout.activity_search);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -29,17 +24,5 @@ public class Form extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        ArrayList<String> arraySpinner = new ArrayList<>(Arrays.asList(new String[]{
-                "Bárbaro", "Guerrero", "Mago", "Clerigo"
-        }));
-        Spinner s = (Spinner) findViewById(R.id.characterClass);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
     }
-
-
-
 }

@@ -2,27 +2,31 @@
 <ScrollView
 
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre" />
@@ -30,13 +34,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/strength"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/strengthText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Fuerza" />
@@ -44,26 +51,33 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dextery"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/strength"
-                tools:layout_editor_absoluteX="160dp">
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/strength">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dexteryText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Destreza" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/constitutionText"
-                android:layout_width="match_parent"
+                android:id="@+id/constitution"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dextery">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/constitutionText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Constitución" />
@@ -71,13 +85,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/intelligence"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constitutionText">
+                app:layout_constraintTop_toBottomOf="@+id/constitution">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/intelligenceText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Inteligencia" />
@@ -85,13 +102,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/wisdom"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/intelligence">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/wisdomText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Sabiduría" />
@@ -99,12 +119,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/charisma"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/wisdom"
-                tools:layout_editor_absoluteX="271dp">
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wisdom">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/charismaText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Carisma" />
@@ -112,95 +136,197 @@
 
             <Spinner
                 android:id="@+id/characterClass"
-                android:layout_width="836dp"
-                android:layout_height="29dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/charisma" />
+                app:layout_constraintStart_toEndOf="@+id/addClass"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <Button
                 android:id="@+id/addClass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="1dp"
+                android:layout_marginTop="8dp"
                 android:text="+"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout10"
-                app:layout_constraintEnd_toStartOf="@+id/characterClass"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/charisma" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/characterClass">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="dd/mm/aa" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <Switch
                 android:id="@+id/player"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
                 android:text="Jugador"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout10" />
+                app:layout_constraintTop_toBottomOf="@+id/characterClass" />
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="117dp"
                 android:layout_height="124dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="24dp"
                 android:background="@android:drawable/btn_dialog"
-                app:layout_constraintEnd_toStartOf="@+id/player"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout10"
+                app:layout_constraintTop_toBottomOf="@+id/addClass"
                 app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 
             <Button
                 android:id="@+id/clearImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="224dp"
+                android:layout_height="44dp"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
                 android:text="Limpiar imagen"
                 app:layout_constraintEnd_toStartOf="@+id/player"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.033"
                 app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout10" />
+                app:layout_constraintTop_toBottomOf="@+id/characterClass" />
 
             <Button
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="84dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="148dp"
+                android:layout_marginTop="24dp"
                 android:background="#4CAF50"
                 android:backgroundTint="#4CAF50"
                 android:text="Guardar"
                 android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image" />
+                app:layout_constraintTop_toBottomOf="@+id/date" />
 
             <Button
                 android:id="@+id/clearForm"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="96dp"
-                android:layout_marginTop="104dp"
+                android:layout_marginStart="264dp"
+                android:layout_marginTop="24dp"
                 android:backgroundTint="#FA0606"
                 android:text="Borrar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/save"
-                app:layout_constraintTop_toBottomOf="@+id/player" />
+                app:layout_constraintTop_toBottomOf="@+id/date" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="380dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint=" Partida [yyyy-mm-dd]"
+                android:inputType="date"
+                android:onClick="calendarPressed"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/clearImg" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charisma">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/strengthIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/strength"
+                app:layout_constraintEnd_toStartOf="@+id/strength"
+                app:layout_constraintHorizontal_bias="0.419"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/strength"
+                app:srcCompat="@drawable/fuerza" />
+
+            <ImageView
+                android:id="@+id/dexteryIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/dextery"
+                app:layout_constraintEnd_toStartOf="@+id/dextery"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dextery"
+                app:srcCompat="@drawable/destreza" />
+
+            <ImageView
+                android:id="@+id/constitutionIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/constitution"
+                app:layout_constraintEnd_toStartOf="@+id/constitution"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/constitution"
+                app:srcCompat="@drawable/constitucion" />
+
+            <ImageView
+                android:id="@+id/intelligenceIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/intelligence"
+                app:layout_constraintEnd_toStartOf="@+id/intelligence"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/intelligence"
+                app:srcCompat="@drawable/inteligencia" />
+
+            <ImageView
+                android:id="@+id/wisdomIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/wisdom"
+                app:layout_constraintEnd_toStartOf="@+id/wisdom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/wisdom"
+                app:srcCompat="@drawable/sabiduria" />
+
+            <ImageView
+                android:id="@+id/charismaIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/charisma"
+                app:layout_constraintEnd_toStartOf="@+id/charisma"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/charisma"
+                app:srcCompat="@drawable/carisma" />
+
+            <ImageView
+                android:id="@+id/nameIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintEnd_toStartOf="@+id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name"
+                app:srcCompat="@drawable/ic_name" />
+
+            <ImageView
+                android:id="@+id/emailIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/email"
+                app:layout_constraintEnd_toStartOf="@+id/email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/email"
+                app:srcCompat="@drawable/ic_email" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

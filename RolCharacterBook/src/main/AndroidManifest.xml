@@ -9,13 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ejemplo">
+        <activity android:name=".view.Search"></activity>
         <activity
-            android:name="com.example.RolCharacterBook.view.List"
+            android:name=".view.About"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".view.List"
+            android:theme="@style/Theme.Ejemplo.NoActionBar" />
+        <activity
+            android:name=".view.List"
             android:label="@string/title_activity_list"
-            android:theme="@style/Theme.Ejemplo.NoActionBar"></activity>
-        <activity android:name="com.example.RolCharacterBook.view.Form" />
+            android:theme="@style/Theme.Ejemplo.NoActionBar" />
         <activity
-            android:name="com.example.RolCharacterBook.view.SplashScreen"
+            android:name=".view.Form"
+            android:label="@string/title_activity_Form"
+            android:parentActivityName=".view.List"
+            android:theme="@style/Theme.Ejemplo.NoActionBar" />
+        <activity
+            android:name=".view.SplashScreen"
             android:label="@string/app_name"
             android:theme="@style/Theme.Ejemplo.NoActionBar">
             <intent-filter>

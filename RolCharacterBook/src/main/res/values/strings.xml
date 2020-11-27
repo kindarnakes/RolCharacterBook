@@ -14,4 +14,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="todo">TODO</string>
     <string name="title_activity_list">Personajes</string>
+    <string name="title_activity_Form">Nuevo Personaje</string>
+    <string name="title_activity_about">About</string>
 </resources>
