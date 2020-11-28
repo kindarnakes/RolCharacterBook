@@ -3,35 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/list">
+    app:startDestination="@id/splashScreen">
     <activity
         android:id="@+id/list"
         android:name="com.example.RolCharacterBook.view.List"
         android:label="activity_list"
-        tools:layout="@layout/activity_list" />
+        tools:layout="@layout/activity_list" >
+        <action
+            android:id="@+id/action_list_to_form"
+            app:destination="@id/form" />
+        <action
+            android:id="@+id/action_list_to_about2"
+            app:destination="@id/about2" />
+    </activity>
     <activity
         android:id="@+id/form"
         android:name="com.example.RolCharacterBook.view.Form"
         android:label="activity_form"
-        tools:layout="@layout/activity_form" />
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.RolCharacterBook.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        tools:layout="@layout/activity_form" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.RolCharacterBook.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+            android:id="@+id/action_form_to_list"
+            app:destination="@id/list" />
+    </activity>
+    <activity
+        android:id="@+id/about2"
+        android:name="com.example.RolCharacterBook.view.About"
+        android:label="activity_about"
+        tools:layout="@layout/activity_about" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+            android:id="@+id/action_about2_to_list"
+            app:destination="@id/list" />
+    </activity>
+    <activity
+        android:id="@+id/splashScreen"
+        android:name="com.example.RolCharacterBook.view.SplashScreen"
+        android:label="activity_splash_screen"
+        tools:layout="@layout/activity_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_list"
+            app:destination="@id/list" />
+    </activity>
 </navigation>

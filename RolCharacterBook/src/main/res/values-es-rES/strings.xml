@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RolCharacterBook</string>
+    <string name="action_settings">Configuración</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="todo">TODO</string>
+    <string name="title_activity_list">Personajes</string>
+    <string name="title_activity_Form">Nuevo Personaje</string>
+    <string name="title_activity_about">Acerca de ...</string>
+    <string name="title_activity_search">Buscar</string>
+    <string name="menu_about">Acerca de ...</string>
+    <string name="menu_order">Ordenar</string>
+    <string name="menu_config">Configuración</string>
+    <string name="menu_help">Ayuda</string>
+    <string name="error_1">Campo obligatorio</string>
+    <string name="error_2">Valor incorrecto</string>
+    <string name="error_3">Debe ser un valor númerico</string>
+    <string name="strength">Fuerza</string>
+    <string name="dexterity">Destreza</string>
+    <string name="constitution">Constitución</string>
+    <string name="intilligence">Inteligencia</string>
+    <string name="wisdom">Sabiduría</string>
+    <string name="charisma">Carisma</string>
+    <string name="name">Nombre</string>
+    <string name="player">Jugador</string>
+    <string name="clean_img">Limpiar Imagen</string>
+    <string name="erase">Borrar</string>
+    <string name="save">Guardar</string>
+    <string name="dateToPlay">Fecha de partida [aaaa-mm-dd]</string>
+    <string name="barbarian">Bárbaro</string>
+    <string name="wizard">Mago</string>
+    <string name="cleric">Clérigo</string>
+    <string name="warrior">Guerrero</string>
+    <string name="rogue">Pícaro</string>
+</resources>

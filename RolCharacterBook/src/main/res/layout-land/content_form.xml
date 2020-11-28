@@ -50,7 +50,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dextery"
+                android:id="@+id/dexterity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="135dp"
@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/strength">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/dexteryText"
+                    android:id="@+id/dexterityText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Destreza" />
@@ -74,7 +74,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dextery">
+                app:layout_constraintTop_toBottomOf="@+id/dexterity">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/constitutionText"
@@ -256,10 +256,10 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/dextery"
-                app:layout_constraintEnd_toStartOf="@+id/dextery"
+                app:layout_constraintBottom_toBottomOf="@+id/dexterity"
+                app:layout_constraintEnd_toStartOf="@+id/dexterity"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/dextery"
+                app:layout_constraintTop_toTopOf="@+id/dexterity"
                 app:srcCompat="@drawable/destreza" />
 
             <ImageView
