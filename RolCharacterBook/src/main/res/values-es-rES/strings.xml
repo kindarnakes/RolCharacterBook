@@ -41,4 +41,10 @@
     <string name="cancel">Cancelar</string>
     <string name="empty_text">No puedes añadir un texto vacío</string>
     <string name="add">" añadido"</string>
+    <string name="maybeplayer">PNJ controlado por invitado</string>
+    <string name="search">Buscar</string>
+    <string name="creatorName">Por Ángel Serrano García</string>
+    <string name="exactDate">Día exacto</string>
+    <string name="before">Antes de</string>
+    <string name="after">Después</string>
 </resources>

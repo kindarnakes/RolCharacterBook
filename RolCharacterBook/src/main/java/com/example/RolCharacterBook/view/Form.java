@@ -1,6 +1,6 @@
 package com.example.RolCharacterBook.view;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -64,6 +64,7 @@ public class Form extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Spinner s;
     private ArrayList<String> arraySpinner;
+    private ArrayAdapter<String> adapter;
 
 
     @Override
@@ -222,7 +223,6 @@ public class Form extends AppCompatActivity {
 
 
         dateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
@@ -247,11 +247,10 @@ public class Form extends AppCompatActivity {
             public void onClick(View view) {
                 // Definir el calendario con la fecha seleccionada por defecto
                 datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    // Definir la acción al pulsar OK en el calendario
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        // Asignar la fecha a un campo de texto
-                        dateText.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day));
+
+                        dateText.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + (day<10?"0":"") + String.valueOf(day));
                     }
                 },Year, Month, Day);
                 // Mostrar el calendario
@@ -262,7 +261,7 @@ public class Form extends AppCompatActivity {
 
     private void setSpinner(ArrayList<String> arraySpinner) {
         s = (Spinner) findViewById(R.id.characterClass);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
@@ -312,6 +311,7 @@ public class Form extends AppCompatActivity {
                         if(newS != null && !newS.matches("")) {
                             arraySpinner.add(newS);
                             setSpinner(arraySpinner);
+                            s.setSelection(adapter.getPosition(newS));
                             Toast.makeText(getApplicationContext(), newS + context.getResources().getString(R.string.add), Toast.LENGTH_LONG).show();
                         }else{
                         Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.empty_text), Toast.LENGTH_LONG).show();

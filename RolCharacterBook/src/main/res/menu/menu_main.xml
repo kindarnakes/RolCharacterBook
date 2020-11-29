@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.RolCharacterBook.view.List">
     <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/about"
         android:orderInCategory="100"
         android:title="@string/menu_about"

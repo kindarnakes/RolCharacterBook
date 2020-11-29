@@ -347,6 +347,17 @@
                 app:layout_constraintTop_toTopOf="@+id/playDate"
                 app:srcCompat="@drawable/ic_calendar" />
 
+            <ImageView
+                android:id="@+id/playerIco"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/player"
+                app:layout_constraintEnd_toStartOf="@+id/player"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/player"
+                app:srcCompat="@drawable/ic_isplayer" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>

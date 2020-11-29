@@ -44,5 +44,12 @@
     <string name="cancel">Cancel</string>
     <string name="empty_text">Don\'t add an empty text</string>
     <string name="add">added</string>
+    <string name="maybeplayer">NPC controlled by invitation</string>
+    <string name="emailcontact" translatable="false">aangserrano@iesfranciscodelosrios.es</string>
+    <string name="search">Search</string>
+    <string name="creatorName">By Ángel Serrano García</string>
+    <string name="before">Before</string>
+    <string name="after">After</string>
+    <string name="exactDate">Exact Date</string>
 
 </resources>

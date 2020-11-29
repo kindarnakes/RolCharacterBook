@@ -42,17 +42,5 @@
         app:menu="@menu/menu_main"
         app:popupTheme="@style/Theme.Ejemplo" />
 
-    <ImageButton
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:backgroundTint="?attr/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/include2"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.757"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,12 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class Character {
 
@@ -19,14 +23,14 @@ public class Character {
     private Integer wisdom;
     private Integer charisma;
     private Boolean isPlayer;
-    private LocalDate playDate;
+    private Date playDate;
     private Image portrait;
 
     public Character() {
     }
 
     public Character(String name, String email, Integer strength, Integer dexterity, Integer constitution,
-                     Integer intelligence, Integer wisdom, Integer charisma, Boolean isPlayer, LocalDate playDate, Image portrait) {
+                     Integer intelligence, Integer wisdom, Integer charisma, Boolean isPlayer, Date playDate, Image portrait) {
         this.name = name;
         this.email = email;
         this.strength = strength;
@@ -193,18 +197,29 @@ public class Character {
         isPlayer = player;
     }
 
-    public LocalDate getPlayDate() {
+    public Date getPlayDate() {
         return playDate;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public int setPlayDate(String playDate) {
         int error = 0;
         if(playDate != null && !playDate.matches("")){
-            try {
-                this.playDate = LocalDate.parse(playDate);
-            }catch (DateTimeParseException ex){
-                error = -2;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                try {
+                    ZoneId defaultZoneId = ZoneId.systemDefault();
+                    this.playDate = Date.from(LocalDate.parse(playDate).atStartOfDay(defaultZoneId).toInstant());
+                }catch (DateTimeParseException ex){
+                    error = -2;
+                }
+            }else {
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(playDate);
+                    this.playDate = date;
+                } catch (ParseException ex) {
+                    error = -2;
+                }
             }
         }else {
             error = -1;

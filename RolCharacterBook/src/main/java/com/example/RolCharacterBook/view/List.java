@@ -47,14 +47,6 @@ public class List extends AppCompatActivity {
             }
         });
 
-        ImageButton search = (ImageButton)findViewById(R.id.search);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(List.this, Search.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -67,9 +59,14 @@ public class List extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
+            case R.id.search:
+                intent = new Intent(List.this, Search.class);
+                startActivity(intent);
+                return true;
             case R.id.about:
-                Intent intent = new Intent(List.this, About.class);
+                intent = new Intent(List.this, About.class);
                 startActivity(intent);
                 return true;
             case R.id.help:

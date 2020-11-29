@@ -29,7 +29,7 @@
                     android:id="@+id/nameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre" />
+                    android:hint="@string/name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +46,7 @@
                     android:id="@+id/strengthText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fuerza" />
+                    android:hint="@string/strength" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +63,7 @@
                     android:id="@+id/dexterityText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Destreza" />
+                    android:hint="@string/dexterity" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -80,7 +80,7 @@
                     android:id="@+id/constitutionText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Constitución" />
+                    android:hint="@string/constitution" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -97,7 +97,7 @@
                     android:id="@+id/intelligenceText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Inteligencia" />
+                    android:hint="@string/intilligence" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -114,7 +114,7 @@
                     android:id="@+id/wisdomText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Sabiduría" />
+                    android:hint="@string/wisdom" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -131,7 +131,7 @@
                     android:id="@+id/charismaText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Carisma" />
+                    android:hint="@string/charisma" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
@@ -148,6 +148,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:onClick="addClass"
                 android:text="+"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -156,71 +157,62 @@
                 android:id="@+id/player"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="Jugador"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="196dp"
+                android:text="@string/player"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/characterClass" />
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="117dp"
-                android:layout_height="124dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="0dp"
+                android:layout_height="84dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="64dp"
                 android:background="@android:drawable/btn_dialog"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addClass"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/characterClass"
+                app:layout_constraintTop_toBottomOf="@+id/characterClass"
                 app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 
             <Button
                 android:id="@+id/clearImg"
-                android:layout_width="224dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="32dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:text="Limpiar imagen"
-                app:layout_constraintEnd_toStartOf="@+id/player"
+                android:text="@string/clean_img"
+                app:layout_constraintEnd_toEndOf="@+id/image"
                 app:layout_constraintHorizontal_bias="0.033"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/characterClass" />
+                app:layout_constraintStart_toStartOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
 
             <Button
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="148dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="32dp"
                 android:background="#4CAF50"
                 android:backgroundTint="#4CAF50"
-                android:text="Guardar"
+                android:text="@string/save"
                 android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date" />
+                app:layout_constraintTop_toBottomOf="@+id/playDate" />
 
             <Button
                 android:id="@+id/clearForm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="264dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="256dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="64dp"
                 android:backgroundTint="#FA0606"
-                android:text="Borrar"
+                android:onClick="erase"
+                android:text="@string/erase"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/save"
-                app:layout_constraintTop_toBottomOf="@+id/date" />
-
-            <EditText
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="380dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint=" Partida [yyyy-mm-dd]"
-                android:inputType="date"
-                android:onClick="calendarPressed"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/clearImg" />
+                app:layout_constraintTop_toBottomOf="@+id/playDate" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email"
@@ -236,7 +228,7 @@
                     android:id="@+id/emailText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email" />
+                    android:hint="@string/email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -327,6 +319,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/email"
                 app:srcCompat="@drawable/ic_email" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/playDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toStartOf="@+id/dateButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clearImg">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/playDateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/dateToPlay" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/dateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/playDate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/playDate"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <ImageView
+                android:id="@+id/playerIco"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/player"
+                app:layout_constraintEnd_toStartOf="@+id/player"
+                app:layout_constraintTop_toTopOf="@+id/player"
+                app:srcCompat="@drawable/ic_isplayer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

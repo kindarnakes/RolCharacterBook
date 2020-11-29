@@ -68,7 +68,6 @@ public class FormPresenter {
     public int setEmail(String email){
         return c.setEmail(email);
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public int setDate(String email){
         return c.setPlayDate(email);
     }

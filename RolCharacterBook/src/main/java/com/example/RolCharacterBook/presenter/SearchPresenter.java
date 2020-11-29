@@ -16,4 +16,8 @@ public class SearchPresenter {
 
     private SearchPresenter() {
     }
+
+    public void searchClick() {
+        view.finish();
+    }
 }
