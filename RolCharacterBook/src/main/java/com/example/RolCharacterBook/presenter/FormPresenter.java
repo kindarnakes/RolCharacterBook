@@ -1,6 +1,9 @@
 package com.example.RolCharacterBook.presenter;
 
 import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
@@ -11,6 +14,9 @@ public class FormPresenter {
     private Character c;
     private Form view;
     private Context context;
+
+    private FormPresenter() {
+    }
 
     public FormPresenter(Form view) {
         this.c = new Character();
@@ -62,8 +68,13 @@ public class FormPresenter {
     public int setEmail(String email){
         return c.setEmail(email);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public int setDate(String email){
         return c.setPlayDate(email);
+    }
+
+    public void eraseYes(){
+        view.finish();
     }
 
 

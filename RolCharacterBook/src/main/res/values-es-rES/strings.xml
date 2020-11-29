@@ -33,4 +33,12 @@
     <string name="cleric">Clérigo</string>
     <string name="warrior">Guerrero</string>
     <string name="rogue">Pícaro</string>
+    <string name="formEraseText">¿Seguro que desea eliminar? Esta acción es permanente</string>
+    <string name="formEraseTitle">Eliminar</string>
+    <string name="yes">Si</string>
+    <string name="addclass">Escribe la clase</string>
+    <string name="acept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="empty_text">No puedes añadir un texto vacío</string>
+    <string name="add">" añadido"</string>
 </resources>

@@ -1,20 +1,30 @@
 package com.example.RolCharacterBook.view;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.Toast;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.presenter.FormPresenter;
@@ -52,6 +62,8 @@ public class Form extends AppCompatActivity {
     private int Day;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
+    private Spinner s;
+    private ArrayList<String> arraySpinner;
 
 
     @Override
@@ -72,17 +84,13 @@ public class Form extends AppCompatActivity {
             }
         });
 
-        ArrayList<String> arraySpinner = new ArrayList<>();
+        arraySpinner = new ArrayList<>();
         arraySpinner.add(context.getResources().getString(R.string.barbarian));
         arraySpinner.add(context.getResources().getString(R.string.wizard));
         arraySpinner.add(context.getResources().getString(R.string.cleric));
         arraySpinner.add(context.getResources().getString(R.string.rogue));
         arraySpinner.add(context.getResources().getString(R.string.warrior));
-        Spinner s = (Spinner) findViewById(R.id.characterClass);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
+        setSpinner(arraySpinner);
 
         presenter = new FormPresenter(this);
 
@@ -214,6 +222,7 @@ public class Form extends AppCompatActivity {
 
 
         dateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
@@ -251,6 +260,14 @@ public class Form extends AppCompatActivity {
         });
     }
 
+    private void setSpinner(ArrayList<String> arraySpinner) {
+        s = (Spinner) findViewById(R.id.characterClass);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arraySpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s.setAdapter(adapter);
+    }
+
     public Context getContext() {
         return context;
     }
@@ -271,4 +288,95 @@ public class Form extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+    public void addClass(View v){
+
+        LayoutInflater li = LayoutInflater.from(Form.this);
+        View promptsView = li.inflate(R.layout.add_class, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                Form.this);
+
+        // set alert_dialog.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.etUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(context.getResources().getString(R.string.acept), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String newS = userInput.getText().toString();
+                        if(newS != null && !newS.matches("")) {
+                            arraySpinner.add(newS);
+                            setSpinner(arraySpinner);
+                            Toast.makeText(getApplicationContext(), newS + context.getResources().getString(R.string.add), Toast.LENGTH_LONG).show();
+                        }else{
+                        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.empty_text), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .setNegativeButton(context.getResources().getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+        Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
+        layoutParams.weight = 10;
+        btnPositive.setLayoutParams(layoutParams);
+        btnNegative.setLayoutParams(layoutParams);
+    }
+
+
+
+    public void erase(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Form.this);
+        builder.setTitle(context.getResources().getString(R.string.formEraseTitle));
+        builder.setMessage(context.getResources().getString(R.string.formEraseText));
+
+        //Yes Button
+        builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.eraseYes();
+                Log.i("erase ", "Yes button Clicked!");
+            }
+        });
+
+        //No Button
+        builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.i("erase", "No button Clicked!");
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+        Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
+        layoutParams.weight = 10;
+        btnPositive.setLayoutParams(layoutParams);
+        btnNegative.setLayoutParams(layoutParams);
+    }
+
+
 }

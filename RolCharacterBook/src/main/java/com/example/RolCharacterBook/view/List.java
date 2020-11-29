@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.RolCharacterBook.R;
+import com.example.RolCharacterBook.presenter.ListPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.widget.ImageButton;
 
 public class List extends AppCompatActivity {
 
+    private ListPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,8 @@ public class List extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        presenter = new ListPresenter(this);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

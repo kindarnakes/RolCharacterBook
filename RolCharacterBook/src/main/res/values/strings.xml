@@ -35,5 +35,14 @@
     <string name="cleric">Cleric</string>
     <string name="warrior">Warrior</string>
     <string name="rogue">Rogue</string>
+    <string name="formEraseText">Are you sure to remove? This action is permanent</string>
+    <string name="formEraseTitle">Remove</string>
+    <string name="yes">Yes</string>
+    <string name="no" translatable="false">No</string>
+    <string name="addclass">Type the class:</string>
+    <string name="acept">Acept</string>
+    <string name="cancel">Cancel</string>
+    <string name="empty_text">Don\'t add an empty text</string>
+    <string name="add">added</string>
 
 </resources>
