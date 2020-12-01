@@ -16,6 +16,7 @@ public class Character {
 
     private String name;
     private String email;
+    private String charClass;
     private Integer strength;
     private Integer dexterity;
     private Integer constitution;
@@ -225,6 +226,14 @@ public class Character {
             error = -1;
         }
         return error;
+    }
+
+    public String getCharClass() {
+        return charClass;
+    }
+
+    public void setCharClass(String charClass) {
+        this.charClass = charClass;
     }
 
     public Image getPortrait() {

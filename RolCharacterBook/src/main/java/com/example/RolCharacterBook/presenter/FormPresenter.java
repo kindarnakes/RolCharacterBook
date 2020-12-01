@@ -68,8 +68,8 @@ public class FormPresenter {
     public int setEmail(String email){
         return c.setEmail(email);
     }
-    public int setDate(String email){
-        return c.setPlayDate(email);
+    public int setDate(String date){
+        return c.setPlayDate(date);
     }
 
     public void eraseYes(){

@@ -65,6 +65,7 @@ public class Form extends AppCompatActivity {
     private Spinner s;
     private ArrayList<String> arraySpinner;
     private ArrayAdapter<String> adapter;
+    private Button save;
 
 
     @Override
@@ -113,6 +114,14 @@ public class Form extends AppCompatActivity {
         emailText = findViewById(R.id.emailText);
         date = findViewById(R.id.playDate);
         dateText = findViewById(R.id.playDateText);
+        save = findViewById(R.id.save);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
 
