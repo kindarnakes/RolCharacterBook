@@ -258,8 +258,8 @@ public class Form extends AppCompatActivity {
                 datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-
-                        dateText.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + (day<10?"0":"") + String.valueOf(day));
+                        Log.d("TAG", "onDateSet: " + month);
+                        dateText.setText(String.valueOf(year) + "-" +((month+1)<10?"0":"") +String.valueOf(month+1) + "-" + (day<10?"0":"") + String.valueOf(day));
                     }
                 },Year, Month, Day);
                 // Mostrar el calendario
