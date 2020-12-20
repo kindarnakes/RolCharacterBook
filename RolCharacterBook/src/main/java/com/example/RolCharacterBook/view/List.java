@@ -1,15 +1,19 @@
 package com.example.RolCharacterBook.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +29,7 @@ public class List extends AppCompatActivity {
 
     private ListPresenter presenter;
     private RecyclerView recyclerView;
+    private Context context;
     private ConstraintLayout layout;
 
     @Override
@@ -37,8 +42,13 @@ public class List extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         presenter = new ListPresenter(this);
+        context = this;
         recyclerView = findViewById(R.id.recycler);
-        layout = findViewById(R.id.listLayout);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +67,7 @@ public class List extends AppCompatActivity {
             }
         });
 
-        loadSampleData();
+        loadData();
     }
 
     @Override
@@ -87,7 +97,7 @@ public class List extends AppCompatActivity {
     }
 
 
-    public void loadSampleData() {
+    public void loadData() {
 
         ArrayList<Character> items = Data.getDATA().getItems();
         CharacterAdapter adapter = new CharacterAdapter(items);
@@ -103,10 +113,25 @@ public class List extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.
+                SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                presenter.swiped(viewHolder, items, adapter);
+
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
+
 
 }

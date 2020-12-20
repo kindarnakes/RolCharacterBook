@@ -47,4 +47,5 @@
     <string name="exactDate">Día exacto</string>
     <string name="before">Antes de</string>
     <string name="after">Después</string>
+    <string name="deleted">"Elemento borrado: "</string>
 </resources>
