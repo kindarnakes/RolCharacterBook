@@ -48,4 +48,7 @@
     <string name="before">Antes de</string>
     <string name="after">Después</string>
     <string name="deleted">"Elemento borrado: "</string>
+    <string name="chooseImg">Elige un retrato</string>
+    <string name="needWrite">Se necesitan permisos de escritura</string>
+    <string name="noDeleted">El elemento no se ha podido borrar</string>
 </resources>

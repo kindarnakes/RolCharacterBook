@@ -1,11 +1,18 @@
 package com.example.RolCharacterBook.view;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,9 +36,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
 import com.example.RolCharacterBook.presenter.FormPresenter;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -69,6 +79,14 @@ public class Form extends AppCompatActivity {
     private Button save;
     private ImageView portrait;
     private Switch player;
+    private Button clearImg;
+
+
+
+
+    public static final int REQUEST_SELECT_IMAGE = 201;
+    final String pathFotos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/images/";
+    private Uri uri;
 
 
     @Override
@@ -120,11 +138,26 @@ public class Form extends AppCompatActivity {
         save = findViewById(R.id.save);
         portrait = findViewById(R.id.imagePortrait);
         player = findViewById(R.id.player);
+        clearImg = findViewById(R.id.clearImg);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        portrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(presenter.permission(Form.this)){
+                    //tenemos permiso
+                    presenter.selectPicture();
+
+                }else{
+                    //no tenemos permiso
+                    presenter.denied();
+                }
             }
         });
 
@@ -270,6 +303,12 @@ public class Form extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+        clearImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                portrait.setImageBitmap(null);
+            }
+        });
 
 
         if (presenter.isInit()) {
@@ -407,6 +446,46 @@ public class Form extends AppCompatActivity {
         btnPositive.setLayoutParams(layoutParams);
         btnNegative.setLayoutParams(layoutParams);
     }
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case FormPresenter.CODE_WRITE_EXTERNAL_STORAGE_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permiso aceptado
+                    presenter.selectPicture();
+                } else {
+                    // Permiso rechazado
+                    presenter.denied();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+            case (REQUEST_SELECT_IMAGE):
+                if (resultCode == Activity.RESULT_OK) {
+                    Bitmap bmp = presenter.imageSelected(data);
+
+                    // Se carga el Bitmap en el ImageView
+                    portrait.setImageBitmap(bmp);
+                }
+                break;
+        }
+    }
+
+
 
 
 }

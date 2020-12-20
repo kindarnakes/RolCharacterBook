@@ -52,5 +52,8 @@
     <string name="after">After</string>
     <string name="exactDate">Exact Date</string>
     <string name="deleted">Item deleted:</string>
+    <string name="chooseImg">Choose a portrait</string>
+    <string name="needWrite">Need Write Permission</string>
+    <string name="noDeleted">Item no deleted</string>
 
 </resources>

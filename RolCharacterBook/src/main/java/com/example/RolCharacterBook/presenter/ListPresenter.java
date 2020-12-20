@@ -34,8 +34,14 @@ public class ListPresenter {
     public void swiped(RecyclerView.ViewHolder viewHolder, ArrayList<Character> items, CharacterAdapter adapter) {
         int position = viewHolder.getAdapterPosition();
         Toast.makeText(context, context.getResources().getString(R.string.deleted)+ items.get(position).getName(), Toast.LENGTH_SHORT).show();
-        items.remove(position);
-        adapter.notifyDataSetChanged();
+        Character removed = items.remove(position);
+        if(items.contains(removed)){
+            Toast.makeText(context, context.getResources().getString(R.string.noDeleted)+ items.get(position).getName(), Toast.LENGTH_SHORT).show();
+        }else {
+            adapter.notifyDataSetChanged();
+            Toast.makeText(context, context.getResources().getString(R.string.deleted)+ items.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 }

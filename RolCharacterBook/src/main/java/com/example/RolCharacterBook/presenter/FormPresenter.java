@@ -1,11 +1,35 @@
 package com.example.RolCharacterBook.presenter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.text.Layout;
+import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
 import com.example.RolCharacterBook.model.Data;
 import com.example.RolCharacterBook.view.Form;
+import com.example.RolCharacterBook.view.List;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class FormPresenter {
 
@@ -13,6 +37,7 @@ public class FormPresenter {
     private Form view;
     private Context context;
     private Boolean init = false;
+    public static final int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
 
     private FormPresenter() {
     }
@@ -96,5 +121,73 @@ public class FormPresenter {
         view.finish();
     }
 
+    public void setImg(String s){
+        c.setPortrait(s);
+    }
 
+
+    public boolean permission(Activity activity){
+
+        int WriteExternalStoragePermission = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.d("FormPrsnter", "WRITE_EXTERNAL_STORAGE Permission: " + WriteExternalStoragePermission);
+
+        if (WriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            // Permiso denegado
+            // A partir de Marshmallow (6.0) se pide aceptar o rechazar el permiso en tiempo de ejecución
+            // En las versiones anteriores no es posible hacerlo
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
+                // Una vez que se pide aceptar o rechazar el permiso se ejecuta el método "onRequestPermissionsResult" para manejar la respuesta
+                // Si el usuario marca "No preguntar más" no se volverá a mostrar este diálogo
+            }
+            return false;
+        } else {
+            // Permiso aceptado
+            return true;
+        }
+
+    }
+
+    public void selectPicture(){
+        // Se le pide al sistema una imagen del dispositivo
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        view.startActivityForResult(
+                Intent.createChooser(intent, view.getResources().getString(R.string.chooseImg)),
+                view.REQUEST_SELECT_IMAGE);
+    }
+
+
+    public Bitmap imageSelected(Intent data) {
+        // Se carga la imagen desde un objeto Bitmap
+        Uri selectedImage = data.getData();
+        String selectedPath = selectedImage.getPath();
+        Bitmap b = null;
+
+        if (selectedPath != null) {
+            // Se leen los bytes de la imagen
+            InputStream imageStream = null;
+            try {
+                // Se transformam los bytes de la imagen a un Bitma
+                imageStream = view.getContentResolver().openInputStream(selectedImage);
+                b = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(imageStream), 240, 240, false);
+
+                /*ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //para guardar la imagen en el objeto
+                b.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                c.setPortrait(Base64.encodeToString(byteArray, Base64.DEFAULT));*/
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return b;
+    }
+
+    public void denied() {
+        Snackbar snackbar = Snackbar
+                .make(view.findViewById(R.id.coordinatorLayout), context.getResources().getString(R.string.needWrite), Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
 }
