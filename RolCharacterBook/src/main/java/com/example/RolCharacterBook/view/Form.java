@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,12 +35,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
 import com.example.RolCharacterBook.presenter.FormPresenter;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -80,8 +76,6 @@ public class Form extends AppCompatActivity {
     private ImageView portrait;
     private Switch player;
     private Button clearImg;
-
-
 
 
     public static final int REQUEST_SELECT_IMAGE = 201;
@@ -150,11 +144,11 @@ public class Form extends AppCompatActivity {
         portrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(presenter.permission(Form.this)){
+                if (presenter.permission(Form.this)) {
                     //tenemos permiso
                     presenter.selectPicture();
 
-                }else{
+                } else {
                     //no tenemos permiso
                     presenter.denied();
                 }
@@ -448,8 +442,6 @@ public class Form extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -468,7 +460,6 @@ public class Form extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -484,8 +475,6 @@ public class Form extends AppCompatActivity {
                 break;
         }
     }
-
-
 
 
 }
