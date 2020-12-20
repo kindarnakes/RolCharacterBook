@@ -1,8 +1,5 @@
 package com.example.RolCharacterBook.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.presenter.SearchPresenter;
@@ -30,7 +30,7 @@ public class Search extends AppCompatActivity {
     private TextInputEditText dateSearchText;
     private ImageButton calendarB;
     private int Year;
-    private  int Month;
+    private int Month;
     private int Day;
     private Calendar calendar;
     private Context context;
@@ -72,7 +72,7 @@ public class Search extends AppCompatActivity {
         dateSearchText.setEnabled(false);
 
         calendar = Calendar.getInstance();
-        Year = calendar.get(Calendar.YEAR) ;
+        Year = calendar.get(Calendar.YEAR);
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
         calendarB.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class Search extends AppCompatActivity {
                         // Asignar la fecha a un campo de texto
                         dateSearchText.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day));
                     }
-                },Year, Month, Day);
+                }, Year, Month, Day);
                 // Mostrar el calendario
                 datePickerDialog.show();
             }

@@ -1,8 +1,9 @@
 package com.example.RolCharacterBook.presenter;
 
 import android.content.Context;
-import android.view.View;
 
+import com.example.RolCharacterBook.model.Character;
+import com.example.RolCharacterBook.model.Data;
 import com.example.RolCharacterBook.view.List;
 
 public class ListPresenter {
@@ -17,4 +18,9 @@ public class ListPresenter {
 
     private ListPresenter() {
     }
+
+    public void clickElement(Character element) {
+        Data.getDATA().setActual(element);
+    }
+
 }

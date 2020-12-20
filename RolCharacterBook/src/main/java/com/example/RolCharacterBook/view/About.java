@@ -1,16 +1,13 @@
 package com.example.RolCharacterBook.view;
 
 import android.os.Bundle;
-
-import com.example.RolCharacterBook.R;
-import com.example.RolCharacterBook.presenter.AboutPresenter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
+import com.example.RolCharacterBook.R;
+import com.example.RolCharacterBook.presenter.AboutPresenter;
 
 public class About extends AppCompatActivity {
 

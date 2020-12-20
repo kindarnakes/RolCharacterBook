@@ -1,9 +1,9 @@
 package com.example.RolCharacterBook.model;
 
-import android.media.Image;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
-
-import androidx.annotation.RequiresApi;
+import android.util.Base64;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,15 +25,34 @@ public class Character {
     private Integer charisma;
     private Boolean isPlayer;
     private Date playDate;
-    private Image portrait;
+    private String portrait;
+    private Integer id;
 
     public Character() {
     }
 
-    public Character(String name, String email, Integer strength, Integer dexterity, Integer constitution,
-                     Integer intelligence, Integer wisdom, Integer charisma, Boolean isPlayer, Date playDate, Image portrait) {
+
+    public Character(Integer id, String name, String email, String portrait) {
         this.name = name;
         this.email = email;
+        this.charClass = "";
+        this.strength = 0;
+        this.dexterity = 0;
+        this.constitution = 0;
+        this.intelligence = 0;
+        this.wisdom = 0;
+        this.charisma = 0;
+        this.isPlayer = true;
+        this.playDate = new Date();
+        this.portrait = portrait;
+        this.id = id;
+    }
+
+    public Character(String name, String email, String charClass, Integer strength, Integer dexterity, Integer constitution,
+                     Integer intelligence, Integer wisdom, Integer charisma, Boolean isPlayer, Date playDate, String portrait, Integer id) {
+        this.name = name;
+        this.email = email;
+        this.charClass = charClass;
         this.strength = strength;
         this.dexterity = dexterity;
         this.constitution = constitution;
@@ -43,6 +62,16 @@ public class Character {
         this.isPlayer = isPlayer;
         this.playDate = playDate;
         this.portrait = portrait;
+        this.id = id;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -56,9 +85,9 @@ public class Character {
     */
     public int setName(String name) {
         int error = 0;
-        if(name != null && !name.matches("")){
-        this.name = name;
-        }else{
+        if (name != null && !name.matches("")) {
+            this.name = name;
+        } else {
             error = -1;
         }
         return error;
@@ -70,13 +99,13 @@ public class Character {
 
     public int setEmail(String email) {
         int error = 0;
-        if(email != null && !email.matches("")){
-            if(email.matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$")){
+        if (email != null && !email.matches("")) {
+            if (email.matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$")) {
                 this.email = email;
-            }else{
+            } else {
                 error = -2;
             }
-        }else{
+        } else {
             error = -1;
         }
         return error;
@@ -88,13 +117,13 @@ public class Character {
 
     public int setStrength(String strength) {
         int error = 0;
-        if(strength != null && !strength.matches("")){
+        if (strength != null && !strength.matches("")) {
             try {
                 this.strength = Integer.parseInt(strength);
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 error = -3;
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -106,13 +135,13 @@ public class Character {
 
     public int setDexterity(String dexterity) {
         int error = 0;
-        if(dexterity != null && !dexterity.matches("")){
+        if (dexterity != null && !dexterity.matches("")) {
             try {
                 this.dexterity = Integer.parseInt(dexterity);
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 error = -3;
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -124,13 +153,13 @@ public class Character {
 
     public int setConstitution(String constitution) {
         int error = 0;
-        if(constitution != null && !constitution.matches("")){
+        if (constitution != null && !constitution.matches("")) {
             try {
                 this.constitution = Integer.parseInt(constitution);
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 error = -3;
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -142,13 +171,13 @@ public class Character {
 
     public int setIntelligence(String intelligence) {
         int error = 0;
-        if(intelligence != null && !intelligence.matches("")){
+        if (intelligence != null && !intelligence.matches("")) {
             try {
                 this.intelligence = Integer.parseInt(intelligence);
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 error = -3;
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -160,13 +189,13 @@ public class Character {
 
     public int setWisdom(String wisdom) {
         int error = 0;
-        if(wisdom != null && !wisdom.matches("")){
+        if (wisdom != null && !wisdom.matches("")) {
             try {
                 this.wisdom = Integer.parseInt(wisdom);
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 error = -3;
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -178,13 +207,13 @@ public class Character {
 
     public int setCharisma(String charisma) {
         int error = 0;
-        if(charisma != null && !charisma.matches("")){
+        if (charisma != null && !charisma.matches("")) {
             try {
                 this.charisma = Integer.parseInt(charisma);
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 error = -3;
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -202,19 +231,27 @@ public class Character {
         return playDate;
     }
 
+    public String getPlayDateAsString() {
+        if (playDate != null) {
+            return new SimpleDateFormat("yyyy-MM-dd").format(playDate);
+        } else {
+            return null;
+        }
+    }
+
 
     public int setPlayDate(String playDate) {
         int error = 0;
-        if(playDate != null && !playDate.matches("")){
+        if (playDate != null && !playDate.matches("")) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 try {
                     ZoneId defaultZoneId = ZoneId.systemDefault();
                     this.playDate = Date.from(LocalDate.parse(playDate).atStartOfDay(defaultZoneId).toInstant());
-                }catch (DateTimeParseException ex){
+                } catch (DateTimeParseException ex) {
                     error = -2;
                 }
-            }else {
+            } else {
                 try {
                     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(playDate);
                     this.playDate = date;
@@ -222,7 +259,7 @@ public class Character {
                     error = -2;
                 }
             }
-        }else {
+        } else {
             error = -1;
         }
         return error;
@@ -236,11 +273,11 @@ public class Character {
         this.charClass = charClass;
     }
 
-    public Image getPortrait() {
+    public String getPortrait() {
         return portrait;
     }
 
-    public void setPortrait(Image portrait) {
+    public void setPortrait(String portrait) {
         this.portrait = portrait;
     }
 
@@ -270,5 +307,14 @@ public class Character {
         result = 31 * result + wisdom.hashCode();
         result = 31 * result + charisma.hashCode();
         return result;
+    }
+
+    public Bitmap getPortraitAsBitmap() {
+        Bitmap decodedByte = null;
+        if (this.portrait != null) {
+            byte[] decodedString = Base64.decode(this.portrait, Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
+        return decodedByte;
     }
 }

@@ -1,12 +1,10 @@
 package com.example.RolCharacterBook.presenter;
 
 import android.content.Context;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
+import com.example.RolCharacterBook.model.Data;
 import com.example.RolCharacterBook.view.Form;
 
 public class FormPresenter {
@@ -14,24 +12,35 @@ public class FormPresenter {
     private Character c;
     private Form view;
     private Context context;
+    private Boolean init = false;
 
     private FormPresenter() {
     }
 
     public FormPresenter(Form view) {
-        this.c = new Character();
+        Character c = Data.getDATA().getActual();
+        if (c != null) {
+            init = true;
+            this.c = c;
+        } else {
+            init = false;
+            this.c = new Character();
+        }
         this.view = view;
         context = view.getApplicationContext();
     }
 
+    public Character getC() {
+        return c;
+    }
 
-    public String getError(int error){
+    public String getError(int error) {
         String errorS = "";
 
-        switch (error){
+        switch (error) {
             case -1:
-               errorS = context.getResources().getString(R.string.error_1);
-               break;
+                errorS = context.getResources().getString(R.string.error_1);
+                break;
             case -2:
                 errorS = context.getResources().getString(R.string.error_2);
                 break;
@@ -42,37 +51,48 @@ public class FormPresenter {
         return errorS;
     }
 
+    public Boolean isInit() {
+        return init;
+    }
 
-    public int setName(String name){
+
+    public int setName(String name) {
         return c.setName(name);
     }
 
-    public int setStrength(String strength){
+    public int setStrength(String strength) {
         return c.setStrength(strength);
     }
-    public int setDexterity(String dexterity){
+
+    public int setDexterity(String dexterity) {
         return c.setDexterity(dexterity);
     }
-    public int setConstitution(String constitution){
+
+    public int setConstitution(String constitution) {
         return c.setConstitution(constitution);
     }
-    public int setIntelligence(String intelligence){
+
+    public int setIntelligence(String intelligence) {
         return c.setIntelligence(intelligence);
     }
-    public int setWisdom(String wisdom){
+
+    public int setWisdom(String wisdom) {
         return c.setWisdom(wisdom);
     }
-    public int setCharisma(String charisma){
+
+    public int setCharisma(String charisma) {
         return c.setCharisma(charisma);
     }
-    public int setEmail(String email){
+
+    public int setEmail(String email) {
         return c.setEmail(email);
     }
-    public int setDate(String date){
+
+    public int setDate(String date) {
         return c.setPlayDate(date);
     }
 
-    public void eraseYes(){
+    public void eraseYes() {
         view.finish();
     }
 

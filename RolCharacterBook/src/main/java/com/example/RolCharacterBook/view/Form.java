@@ -1,12 +1,10 @@
 package com.example.RolCharacterBook.view;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.os.Build;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +17,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.RolCharacterBook.R;
+import com.example.RolCharacterBook.model.Character;
 import com.example.RolCharacterBook.presenter.FormPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -58,7 +59,7 @@ public class Form extends AppCompatActivity {
     private Context context;
     private ImageButton datePick;
     private int Year;
-    private  int Month;
+    private int Month;
     private int Day;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
@@ -66,6 +67,8 @@ public class Form extends AppCompatActivity {
     private ArrayList<String> arraySpinner;
     private ArrayAdapter<String> adapter;
     private Button save;
+    private ImageView portrait;
+    private Switch player;
 
 
     @Override
@@ -115,6 +118,8 @@ public class Form extends AppCompatActivity {
         date = findViewById(R.id.playDate);
         dateText = findViewById(R.id.playDateText);
         save = findViewById(R.id.save);
+        portrait = findViewById(R.id.imagePortrait);
+        player = findViewById(R.id.player);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,15 +129,14 @@ public class Form extends AppCompatActivity {
         });
 
 
-
-       nameText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        nameText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setName(nameText.getText().toString());
                     name.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -145,7 +149,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setStrength(strengthText.getText().toString());
                     strength.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -158,7 +162,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setDexterity(dexterityText.getText().toString());
                     dexterity.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -171,7 +175,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setConstitution(constitutionText.getText().toString());
                     constitution.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -184,7 +188,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setIntelligence(intelligenceText.getText().toString());
                     intelligence.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -197,7 +201,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setWisdom(wisdomText.getText().toString());
                     wisdom.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -210,7 +214,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setCharisma(charismaText.getText().toString());
                     charisma.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -223,7 +227,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setEmail(emailText.getText().toString());
                     email.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -238,7 +242,7 @@ public class Form extends AppCompatActivity {
                     Log.d("FormActivity", "Exit EditText");
                     int error = presenter.setDate(dateText.getText().toString());
                     date.setError(presenter.getError(error));
-                }else{
+                } else {
                     Log.d("FormActivity", "Input EditText");
                 }
 
@@ -247,7 +251,7 @@ public class Form extends AppCompatActivity {
 
 
         calendar = Calendar.getInstance();
-        Year = calendar.get(Calendar.YEAR) ;
+        Year = calendar.get(Calendar.YEAR);
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
         datePick = findViewById(R.id.dateButton);
@@ -259,13 +263,32 @@ public class Form extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         Log.d("TAG", "onDateSet: " + month);
-                        dateText.setText(String.valueOf(year) + "-" +((month+1)<10?"0":"") +String.valueOf(month+1) + "-" + (day<10?"0":"") + String.valueOf(day));
+                        dateText.setText(String.valueOf(year) + "-" + ((month + 1) < 10 ? "0" : "") + String.valueOf(month + 1) + "-" + (day < 10 ? "0" : "") + String.valueOf(day));
                     }
-                },Year, Month, Day);
+                }, Year, Month, Day);
                 // Mostrar el calendario
                 datePickerDialog.show();
             }
         });
+
+
+        if (presenter.isInit()) {
+            Character c = presenter.getC();
+            nameText.setText(c.getName());
+            emailText.setText(c.getEmail());
+            dateText.setText(c.getPlayDateAsString());
+            strengthText.setText(c.getStrength().toString());
+            dexterityText.setText(c.getDexterity().toString());
+            constitutionText.setText(c.getConstitution().toString());
+            intelligenceText.setText(c.getIntelligence().toString());
+            wisdomText.setText(c.getWisdom().toString());
+            charismaText.setText(c.getCharisma().toString());
+            portrait.setImageBitmap(c.getPortraitAsBitmap());
+            player.setChecked(c.getPlayer());
+            getSupportActionBar().setTitle(c.getName());
+        }
+
+
     }
 
     private void setSpinner(ArrayList<String> arraySpinner) {
@@ -298,8 +321,7 @@ public class Form extends AppCompatActivity {
     }
 
 
-
-    public void addClass(View v){
+    public void addClass(View v) {
 
         LayoutInflater li = LayoutInflater.from(Form.this);
         View promptsView = li.inflate(R.layout.add_class, null);
@@ -317,13 +339,13 @@ public class Form extends AppCompatActivity {
                 .setPositiveButton(context.getResources().getString(R.string.acept), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String newS = userInput.getText().toString();
-                        if(newS != null && !newS.matches("")) {
+                        if (newS != null && !newS.matches("")) {
                             arraySpinner.add(newS);
                             setSpinner(arraySpinner);
                             s.setSelection(adapter.getPosition(newS));
                             Toast.makeText(getApplicationContext(), newS + context.getResources().getString(R.string.add), Toast.LENGTH_LONG).show();
-                        }else{
-                        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.empty_text), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.empty_text), Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -348,7 +370,6 @@ public class Form extends AppCompatActivity {
         btnPositive.setLayoutParams(layoutParams);
         btnNegative.setLayoutParams(layoutParams);
     }
-
 
 
     public void erase(View v) {

@@ -3,7 +3,6 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -164,7 +163,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/characterClass" />
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/imagePortrait"
                 android:layout_width="0dp"
                 android:layout_height="84dp"
                 android:layout_marginTop="64dp"
@@ -182,10 +181,10 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/clean_img"
-                app:layout_constraintEnd_toEndOf="@+id/image"
+                app:layout_constraintEnd_toEndOf="@+id/imagePortrait"
                 app:layout_constraintHorizontal_bias="0.033"
-                app:layout_constraintStart_toStartOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/image" />
+                app:layout_constraintStart_toStartOf="@+id/imagePortrait"
+                app:layout_constraintTop_toBottomOf="@+id/imagePortrait" />
 
             <Button
                 android:id="@+id/save"
