@@ -11,9 +11,16 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.UUID;
 
-public class Character {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class Character extends RealmObject {
+
+
+    @PrimaryKey
+    private String UUID;
     private String name;
     private String email;
     private String charClass;
@@ -26,13 +33,12 @@ public class Character {
     private Boolean isPlayer;
     private Date playDate;
     private String portrait;
-    private Integer id;
 
     public Character() {
     }
 
 
-    public Character(Integer id, String name, String email, String portrait) {
+    public Character(String id, String name, String email, String portrait) {
         this.name = name;
         this.email = email;
         this.charClass = "";
@@ -45,11 +51,11 @@ public class Character {
         this.isPlayer = true;
         this.playDate = new Date();
         this.portrait = portrait;
-        this.id = id;
+        this.UUID = id;
     }
 
     public Character(String name, String email, String charClass, Integer strength, Integer dexterity, Integer constitution,
-                     Integer intelligence, Integer wisdom, Integer charisma, Boolean isPlayer, Date playDate, String portrait, Integer id) {
+                     Integer intelligence, Integer wisdom, Integer charisma, Boolean isPlayer, Date playDate, String portrait, String id) {
         this.name = name;
         this.email = email;
         this.charClass = charClass;
@@ -62,16 +68,26 @@ public class Character {
         this.isPlayer = isPlayer;
         this.playDate = playDate;
         this.portrait = portrait;
-        this.id = id;
+        if(id != null) {
+            this.UUID = id;
+        }else{
+            this.UUID = java.util.UUID.randomUUID().toString();
+        }
     }
 
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return UUID;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.UUID = id;
+    }
+
+    public void generateUUID(){
+        if(this.UUID == null) {
+            this.UUID = java.util.UUID.randomUUID().toString();
+        }
     }
 
     public String getName() {

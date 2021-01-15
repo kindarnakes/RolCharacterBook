@@ -39,7 +39,7 @@ public class ListPresenter {
             Toast.makeText(context, context.getResources().getString(R.string.noDeleted) + items.get(position).getName(), Toast.LENGTH_SHORT).show();
         } else {
             adapter.notifyDataSetChanged();
-            Toast.makeText(context, context.getResources().getString(R.string.deleted) + items.get(position).getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getResources().getString(R.string.deleted) + removed.getName(), Toast.LENGTH_SHORT).show();
 
         }
     }

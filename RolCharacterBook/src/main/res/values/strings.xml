@@ -55,5 +55,7 @@
     <string name="chooseImg">Choose a portrait</string>
     <string name="needWrite">Need Write Permission</string>
     <string name="noDeleted">Item no deleted</string>
+    <string name="error_save">Fields contains errors</string>
+    <string name="error" translatable="false">Error</string>
 
 </resources>

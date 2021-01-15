@@ -24,6 +24,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class List extends AppCompatActivity {
 
     private ListPresenter presenter;

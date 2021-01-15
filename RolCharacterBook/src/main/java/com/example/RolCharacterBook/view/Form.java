@@ -20,11 +20,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -38,6 +40,8 @@ import com.example.RolCharacterBook.presenter.FormPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -134,10 +138,37 @@ public class Form extends AppCompatActivity {
         player = findViewById(R.id.player);
         clearImg = findViewById(R.id.clearImg);
 
+        player.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()  {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.setNPC(isChecked);
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //validate all fields, if all validates, object is set
+                boolean check = checkField(nameText, name, "setName");
+                check = checkField(strengthText, strength, "setStrength")?check:false;
+                check = checkField(strengthText, strength, "setStrength")?check:false;
+                check = checkField(dexterityText, dexterity, "setDexterity")?check:false;
+                check = checkField(constitutionText, constitution, "setConstitution")?check:false;
+                check = checkField(intelligenceText, intelligence, "setIntelligence")?check:false;
+                check = checkField(wisdomText, wisdom, "setWisdom")?check:false;
+                check = checkField(charismaText, charisma, "setCharisma")?check:false;
+                check = checkField(emailText, email, "setEmail")?check:false;
+                check = checkField(dateText, date, "setDate")?check:false;
+
+                if(check){
+                    presenter.setClass(s.getSelectedItem().toString());
+                    presenter.generateUUID();
+                    presenter.save();
+                    presenter.finish();
+                }else{
+                    dialog(context.getResources().getString(R.string.error), context.getResources().getString(R.string.error_save), context.getResources().getString(R.string.acept));
+                }
+
             }
         });
 
@@ -155,126 +186,15 @@ public class Form extends AppCompatActivity {
             }
         });
 
-
-        nameText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setName(nameText.getText().toString());
-                    name.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        strengthText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setStrength(strengthText.getText().toString());
-                    strength.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        dexterityText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setDexterity(dexterityText.getText().toString());
-                    dexterity.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        constitutionText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setConstitution(constitutionText.getText().toString());
-                    constitution.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        intelligenceText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setIntelligence(intelligenceText.getText().toString());
-                    intelligence.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        wisdomText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setWisdom(wisdomText.getText().toString());
-                    wisdom.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        charismaText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setCharisma(charismaText.getText().toString());
-                    charisma.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-        emailText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setEmail(emailText.getText().toString());
-                    email.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
-
-
-        dateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d("FormActivity", "Exit EditText");
-                    int error = presenter.setDate(dateText.getText().toString());
-                    date.setError(presenter.getError(error));
-                } else {
-                    Log.d("FormActivity", "Input EditText");
-                }
-
-            }
-        });
+        listenerCheckField(nameText, name, "setName");
+        listenerCheckField(strengthText, strength, "setStrength");
+        listenerCheckField(dexterityText, dexterity, "setDexterity");
+        listenerCheckField(constitutionText, constitution, "setConstitution");
+        listenerCheckField(intelligenceText, intelligence, "setIntelligence");
+        listenerCheckField(wisdomText, wisdom, "setWisdom");
+        listenerCheckField(charismaText, charisma, "setCharisma");
+        listenerCheckField(emailText, email, "setEmail");
+        listenerCheckField(dateText, date, "setDate");
 
 
         calendar = Calendar.getInstance();
@@ -300,6 +220,7 @@ public class Form extends AppCompatActivity {
         clearImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                presenter.setImg(null);
                 portrait.setImageBitmap(null);
             }
         });
@@ -476,5 +397,74 @@ public class Form extends AppCompatActivity {
         }
     }
 
+
+
+    private void listenerCheckField(TextInputEditText editText, TextInputLayout layoutText, String method){
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    Log.d("FormActivity", "Exit EditText");
+                    try {
+                        Method m = FormPresenter.class.getDeclaredMethod(method, String.class);
+                        int error = (int) m.invoke(presenter, editText.getText().toString());
+                        layoutText.setError(presenter.getError(error));
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.d("FormActivity", "Input EditText");
+                }
+
+            }
+        });
+    }
+
+    private boolean checkField(TextInputEditText text, TextInputLayout layout, String method){
+        boolean correct = false;
+        Method m = null;
+        try {
+            m = FormPresenter.class.getDeclaredMethod(method, String.class);
+            int error = (int) m.invoke(presenter, text.getText().toString());
+            layout.setError(presenter.getError(error));
+            if(error == 0) {
+                correct = true;
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        return correct;
+
+    }
+
+    private void dialog(String title, String message, String button){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Form.this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        builder.setPositiveButton(button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) btnPositive.getLayoutParams();
+        layoutParams.weight = 10;
+        btnPositive.setLayoutParams(layoutParams);
+    }
 
 }

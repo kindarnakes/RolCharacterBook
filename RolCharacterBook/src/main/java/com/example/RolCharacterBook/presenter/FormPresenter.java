@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
@@ -20,6 +21,7 @@ import com.example.RolCharacterBook.model.Data;
 import com.example.RolCharacterBook.view.Form;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -109,7 +111,22 @@ public class FormPresenter {
         return c.setPlayDate(date);
     }
 
+    public void setClass(String c){
+        this.c.setCharClass(c);
+    }
+
+    public void setNPC(Boolean npc){
+        c.setPlayer(npc);
+    }
+    public void generateUUID(){
+        c.generateUUID();
+    }
+
     public void eraseYes() {
+        view.finish();
+    }
+
+    public void finish() {
         view.finish();
     }
 
@@ -165,10 +182,10 @@ public class FormPresenter {
                 imageStream = view.getContentResolver().openInputStream(selectedImage);
                 b = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(imageStream), 240, 240, false);
 
-                /*ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //para guardar la imagen en el objeto
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //para guardar la imagen en el objeto
                 b.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream .toByteArray();
-                c.setPortrait(Base64.encodeToString(byteArray, Base64.DEFAULT));*/
+                c.setPortrait(Base64.encodeToString(byteArray, Base64.DEFAULT));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -181,5 +198,9 @@ public class FormPresenter {
         Snackbar snackbar = Snackbar
                 .make(view.findViewById(R.id.coordinatorLayout), context.getResources().getString(R.string.needWrite), Snackbar.LENGTH_LONG);
         snackbar.show();
+    }
+
+    public void save(){
+         Data.getDATA().save(c);
     }
 }

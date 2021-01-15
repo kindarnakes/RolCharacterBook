@@ -51,4 +51,5 @@
     <string name="chooseImg">Elige un retrato</string>
     <string name="needWrite">Se necesitan permisos de escritura</string>
     <string name="noDeleted">El elemento no se ha podido borrar</string>
+    <string name="error_save">Los campos contienen errores</string>
 </resources>
