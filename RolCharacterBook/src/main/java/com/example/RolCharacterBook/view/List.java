@@ -78,7 +78,6 @@ public class List extends AppCompatActivity {
         });
 
         adapter = new CharacterAdapter(new ArrayList<>());
-        loadData(adapter);
     }
 
     @Override
@@ -112,7 +111,6 @@ public class List extends AppCompatActivity {
         ArrayList<Character> items = presenter.load();
         nelements.setText(context.getResources().getString(R.string.number_elements) + items.size());
         adapter.setItems(items);
-        Log.d("Recived", String.valueOf(items.size()));
 
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
