@@ -3,10 +3,13 @@ package com.example.RolCharacterBook.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.TextureView;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +36,8 @@ public class List extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Context context;
     private ConstraintLayout layout;
+    private TextView nelements;
+    private CharacterAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,14 @@ public class List extends AppCompatActivity {
         presenter = new ListPresenter(this);
         context = this;
         recyclerView = findViewById(R.id.recycler);
+        nelements = findViewById(R.id.nelements);
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +77,8 @@ public class List extends AppCompatActivity {
             }
         });
 
-        loadData();
+        adapter = new CharacterAdapter(new ArrayList<>());
+        loadData(adapter);
     }
 
     @Override
@@ -99,15 +108,16 @@ public class List extends AppCompatActivity {
     }
 
 
-    public void loadData() {
-
-        ArrayList<Character> items = Data.getDATA().getItems();
-        CharacterAdapter adapter = new CharacterAdapter(items);
+    public void loadData(CharacterAdapter adapter) {
+        ArrayList<Character> items = presenter.load();
+        nelements.setText(context.getResources().getString(R.string.number_elements) + items.size());
+        adapter.setItems(items);
+        Log.d("Recived", String.valueOf(items.size()));
 
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.clickElement(items.get(recyclerView.getChildAdapterPosition(v)));
+                presenter.clickElement(Data.getDATA().getItems().get(recyclerView.getChildAdapterPosition(v)));
                 Intent intent = new Intent(List.this, Form.class);
                 startActivity(intent);
 
@@ -126,14 +136,20 @@ public class List extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                presenter.swiped(viewHolder, items, adapter);
+                presenter.swiped(viewHolder, Data.getDATA().getItems(), adapter, nelements);
 
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+        adapter.notifyDataSetChanged();
+
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData(adapter);
+    }
 }

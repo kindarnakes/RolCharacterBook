@@ -228,6 +228,11 @@ public class Form extends AppCompatActivity {
 
         if (presenter.isInit()) {
             Character c = presenter.getC();
+            if(!arraySpinner.contains(c.getCharClass())){
+                arraySpinner.add(c.getCharClass());
+                setSpinner(arraySpinner);
+            }
+            s.setSelection(adapter.getPosition(c.getCharClass()));
             nameText.setText(c.getName());
             emailText.setText(c.getEmail());
             dateText.setText(c.getPlayDateAsString());

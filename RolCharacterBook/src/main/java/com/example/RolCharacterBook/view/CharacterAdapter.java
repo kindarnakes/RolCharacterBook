@@ -57,6 +57,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             listener.onClick(view);
     }
 
+    public void setItems(ArrayList<Character> items) {
+        this.items = items;
+    }
 
     public class CharacterViewHolder extends RecyclerView.ViewHolder {
         private TextView TextView_characterName;

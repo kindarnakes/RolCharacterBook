@@ -57,5 +57,6 @@
     <string name="noDeleted">Item no deleted</string>
     <string name="error_save">Fields contains errors</string>
     <string name="error" translatable="false">Error</string>
+    <string name="number_elements">Elements:</string>
 
 </resources>

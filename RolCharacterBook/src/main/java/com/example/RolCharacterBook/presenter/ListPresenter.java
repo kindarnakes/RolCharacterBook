@@ -1,6 +1,7 @@
 package com.example.RolCharacterBook.presenter;
 
 import android.content.Context;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,21 +28,32 @@ public class ListPresenter {
     }
 
     public void clickElement(Character element) {
-        Data.getDATA().setActual(element);
+        if(element != null) {
+            Data.getDATA().getById(element.getId());
+        }else{
+            Data.getDATA().setActual(element);
+        }
     }
 
 
-    public void swiped(RecyclerView.ViewHolder viewHolder, ArrayList<Character> items, CharacterAdapter adapter) {
-        int position = viewHolder.getAdapterPosition();
-        Toast.makeText(context, context.getResources().getString(R.string.deleted) + items.get(position).getName(), Toast.LENGTH_SHORT).show();
+    public void swiped(RecyclerView.ViewHolder viewHolder, ArrayList<Character> items, CharacterAdapter adapter, TextView text) {
+        int position = viewHolder.getLayoutPosition();
         Character removed = items.remove(position);
         if (items.contains(removed)) {
             Toast.makeText(context, context.getResources().getString(R.string.noDeleted) + items.get(position).getName(), Toast.LENGTH_SHORT).show();
         } else {
+            Data.getDATA().remove(removed);
+            adapter.setItems(items);
             adapter.notifyDataSetChanged();
+            text.setText(context.getResources().getText(R.string.number_elements) + String.valueOf(items.size()));
             Toast.makeText(context, context.getResources().getString(R.string.deleted) + removed.getName(), Toast.LENGTH_SHORT).show();
 
         }
     }
+
+    public ArrayList<Character> load(){
+        return Data.getDATA().loadAll();
+    }
+
 
 }

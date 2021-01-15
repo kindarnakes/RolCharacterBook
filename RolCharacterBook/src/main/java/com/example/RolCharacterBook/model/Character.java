@@ -30,7 +30,7 @@ public class Character extends RealmObject {
     private Integer intelligence;
     private Integer wisdom;
     private Integer charisma;
-    private Boolean isPlayer;
+    private Boolean isPlayer = false;
     private Date playDate;
     private String portrait;
 
@@ -300,17 +300,11 @@ public class Character extends RealmObject {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Character)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Character character = (Character) o;
 
-        if (!name.equals(character.name)) return false;
-        if (!strength.equals(character.strength)) return false;
-        if (!dexterity.equals(character.dexterity)) return false;
-        if (!constitution.equals(character.constitution)) return false;
-        if (!intelligence.equals(character.intelligence)) return false;
-        if (!wisdom.equals(character.wisdom)) return false;
-        return charisma.equals(character.charisma);
+        return UUID.equals(character.UUID);
     }
 
     @Override
