@@ -2,7 +2,10 @@ package com.example.RolCharacterBook.view;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,12 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.RolCharacterBook.R;
+import com.example.RolCharacterBook.model.Character;
+import com.example.RolCharacterBook.model.Data;
 import com.example.RolCharacterBook.presenter.SearchPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Search extends AppCompatActivity {
 
@@ -35,10 +41,8 @@ public class Search extends AppCompatActivity {
     private Calendar calendar;
     private Context context;
     private DatePickerDialog datePickerDialog;
-    private Spinner s;
-    private ArrayList<String> arraySpinner;
-    private ArrayAdapter<String> adapter;
     private Button searchB;
+    private Spinner sClass;
 
 
     @Override
@@ -68,6 +72,7 @@ public class Search extends AppCompatActivity {
         dateSearchText = findViewById(R.id.dateSearchText);
         calendarB = findViewById(R.id.calendarButton);
         searchB = findViewById(R.id.searchButton);
+        sClass = findViewById(R.id.isclass);
 
         dateSearchText.setEnabled(false);
 
@@ -84,7 +89,7 @@ public class Search extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         // Asignar la fecha a un campo de texto
-                        dateSearchText.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day));
+                        dateSearchText.setText(String.valueOf(year) + "-" + ((month + 1) < 10 ? "0" : "") + String.valueOf(month + 1) + "-" + (day < 10 ? "0" : "") + String.valueOf(day));
                     }
                 }, Year, Month, Day);
                 // Mostrar el calendario
@@ -92,27 +97,33 @@ public class Search extends AppCompatActivity {
             }
         });
 
-        arraySpinner = new ArrayList<>();
-        arraySpinner.add(context.getResources().getString(R.string.before));
-        arraySpinner.add(context.getResources().getString(R.string.after));
-        arraySpinner.add(context.getResources().getString(R.string.exactDate));
-        setSpinner(arraySpinner);
+        setSpinner(Data.getDATA().loadClass(), sClass);
+
 
         searchB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                search(v);
             }
         });
 
 
     }
 
-    private void setSpinner(ArrayList<String> arraySpinner) {
-        s = (Spinner) findViewById(R.id.isplayer);
-        adapter = new ArrayAdapter<String>(this,
+    public void search(View v){
+        ArrayList<Character> search = (ArrayList<Character>) presenter.search(nameSearchText.getText().toString(), dateSearchText.getText().toString(), sClass.getSelectedItem().toString());
+        Intent i = getIntent();
+        Bundle b = new Bundle();
+        b.putParcelableArrayList("search",search);
+        i.putExtra("search",b);
+        setResult(1, i);
+        finish();
+    }
+
+    private void setSpinner(ArrayList<String> arraySpinner, Spinner sp) {
+        ArrayAdapter<String> ad = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(ad);
     }
 }

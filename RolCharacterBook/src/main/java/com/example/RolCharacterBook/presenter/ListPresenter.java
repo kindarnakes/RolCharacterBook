@@ -14,6 +14,8 @@ import com.example.RolCharacterBook.view.List;
 
 import java.util.ArrayList;
 
+import io.realm.RealmObject;
+
 public class ListPresenter {
 
     private Context context;

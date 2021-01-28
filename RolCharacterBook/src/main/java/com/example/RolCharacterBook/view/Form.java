@@ -36,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
+import com.example.RolCharacterBook.model.Data;
 import com.example.RolCharacterBook.presenter.FormPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -80,6 +81,7 @@ public class Form extends AppCompatActivity {
     private ImageView portrait;
     private Switch player;
     private Button clearImg;
+    private Button delete;
 
 
     public static final int REQUEST_SELECT_IMAGE = 201;
@@ -105,12 +107,7 @@ public class Form extends AppCompatActivity {
             }
         });
 
-        arraySpinner = new ArrayList<>();
-        arraySpinner.add(context.getResources().getString(R.string.barbarian));
-        arraySpinner.add(context.getResources().getString(R.string.wizard));
-        arraySpinner.add(context.getResources().getString(R.string.cleric));
-        arraySpinner.add(context.getResources().getString(R.string.rogue));
-        arraySpinner.add(context.getResources().getString(R.string.warrior));
+        arraySpinner = Data.getDATA().loadClass();
         setSpinner(arraySpinner);
 
         presenter = new FormPresenter(this);
@@ -137,6 +134,9 @@ public class Form extends AppCompatActivity {
         portrait = findViewById(R.id.imagePortrait);
         player = findViewById(R.id.player);
         clearImg = findViewById(R.id.clearImg);
+        delete = findViewById(R.id.clearForm);
+
+        delete.setVisibility(View.INVISIBLE);
 
         player.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()  {
             @Override
@@ -245,6 +245,7 @@ public class Form extends AppCompatActivity {
             portrait.setImageBitmap(c.getPortraitAsBitmap());
             player.setChecked(c.getPlayer());
             getSupportActionBar().setTitle(c.getName());
+            delete.setVisibility(View.VISIBLE);
         }
 
 
@@ -298,8 +299,9 @@ public class Form extends AppCompatActivity {
                 .setPositiveButton(context.getResources().getString(R.string.acept), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String newS = userInput.getText().toString();
-                        if (newS != null && !newS.matches("")) {
+                        if (newS != null && !newS.matches("") && !arraySpinner.contains(newS)) {
                             arraySpinner.add(newS);
+                            Data.getDATA().saveClass(newS);
                             setSpinner(arraySpinner);
                             s.setSelection(adapter.getPosition(newS));
                             Toast.makeText(getApplicationContext(), newS + context.getResources().getString(R.string.add), Toast.LENGTH_LONG).show();

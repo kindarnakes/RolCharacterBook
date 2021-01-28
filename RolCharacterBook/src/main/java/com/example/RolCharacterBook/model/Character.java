@@ -3,6 +3,8 @@ package com.example.RolCharacterBook.model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Base64;
 
 import java.text.ParseException;
@@ -16,7 +18,7 @@ import java.util.UUID;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Character extends RealmObject {
+public class Character extends RealmObject implements Parcelable {
 
 
     @PrimaryKey
@@ -327,4 +329,40 @@ public class Character extends RealmObject {
         }
         return decodedByte;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(UUID);
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(portrait);
+
+    }
+
+
+    private Character(Parcel in) {
+        UUID = in.readString();
+        name = in.readString();
+        email = in.readString();
+        portrait = in.readString();
+
+    }
+
+
+    public static final Parcelable.Creator<Character> CREATOR
+            = new Parcelable.Creator<Character>() {
+        public Character createFromParcel(Parcel in) {
+            return new Character(in);
+        }
+
+        public Character[] newArray(int size) {
+            return new Character[size];
+        }
+    };
 }

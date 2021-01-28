@@ -2,6 +2,7 @@ package com.example.RolCharacterBook.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 
 public class List extends AppCompatActivity {
 
@@ -38,6 +42,7 @@ public class List extends AppCompatActivity {
     private ConstraintLayout layout;
     private TextView nelements;
     private CharacterAdapter adapter;
+    private Boolean loadorsearch = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +98,8 @@ public class List extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.search:
                 intent = new Intent(List.this, Search.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+                loadorsearch = false;
                 return true;
             case R.id.about:
                 intent = new Intent(List.this, About.class);
@@ -107,11 +113,26 @@ public class List extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("RESULT", String.valueOf(resultCode));
+        if(resultCode == 1){
+            ArrayList<Character> chars = data.getExtras().getBundle("search").getParcelableArrayList("search");
+            for(Character c : chars) {
+                Log.d("RESULT", c.getName());
+            }
+        }else{
+            loadorsearch = true;
+        }
+
+    }
+
     public void loadData(CharacterAdapter adapter) {
         ArrayList<Character> items = presenter.load();
         nelements.setText(context.getResources().getString(R.string.number_elements) + items.size());
         adapter.setItems(items);
-
+        Log.d("PASO", "loadData");
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +169,10 @@ public class List extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadData(adapter);
+        if(loadorsearch) {
+            loadData(adapter);
+        }else {
+            loadorsearch = true;
+        }
     }
 }

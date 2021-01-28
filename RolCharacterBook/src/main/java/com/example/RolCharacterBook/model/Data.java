@@ -2,9 +2,14 @@ package com.example.RolCharacterBook.model;
 
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 
 public class Data {
     private static final Data DATA = new Data();
@@ -110,6 +115,57 @@ public class Data {
                 c.getWisdom(), c.getCharisma(), c.getPlayer(), c.getPlayDate(), c.getPortrait(), c.getId());
         realm.close();
         return this.actual;
+    }
+
+
+    public ArrayList<String> loadClass(){
+        Realm realm = Realm.getDefaultInstance();
+        ArrayList<String> s = new ArrayList<>();
+        ArrayList<ClassString> c = new ArrayList<>(realm.where(ClassString.class).findAll());
+        for(ClassString aux : c){
+            s.add(aux._name);
+        }
+        return s;
+    }
+
+    public void saveClass(String s){
+        ClassString c = new ClassString();
+        c._name = s;
+        Realm realm = Realm.getDefaultInstance();
+
+        realm.executeTransaction(r -> {
+            realm.copyToRealmOrUpdate(c);
+        });
+
+        realm.close();
+    }
+
+    public List<Character> search(String name, String date, String charClass){
+        ArrayList<Character> list = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery query = realm.where(Character.class);
+        if(name != null && !name.equals("")){
+            query = query.like("name", name);
+        }
+        if(date != null && !date.equals("")){
+            try {
+                Date datesearch  = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+                query = query.equalTo("playDate", datesearch);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(charClass != null && !charClass.equals("")){
+            query = query.equalTo("charClass", charClass);
+        }
+        list = new ArrayList(query.findAll());
+
+        for(Character c: list){
+            Log.d("Buscado", "search: " + c.getName());
+        }
+        this.items = list;
+        return list;
     }
 
 }

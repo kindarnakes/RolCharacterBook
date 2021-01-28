@@ -2,7 +2,12 @@ package com.example.RolCharacterBook.presenter;
 
 import android.content.Context;
 
+import com.example.RolCharacterBook.model.Character;
+import com.example.RolCharacterBook.model.Data;
+
 import com.example.RolCharacterBook.view.Search;
+
+import java.util.List;
 
 public class SearchPresenter {
 
@@ -19,5 +24,9 @@ public class SearchPresenter {
 
     public void searchClick() {
         view.finish();
+    }
+
+    public List<Character> search(String name, String date, String charClass) {
+        return Data.getDATA().search(name, date, charClass);
     }
 }

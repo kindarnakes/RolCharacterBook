@@ -123,6 +123,7 @@ public class FormPresenter {
     }
 
     public void eraseYes() {
+        Data.getDATA().remove(c);
         view.finish();
     }
 
