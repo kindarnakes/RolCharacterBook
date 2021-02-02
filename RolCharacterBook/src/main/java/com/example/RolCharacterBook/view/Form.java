@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -159,6 +160,11 @@ public class Form extends AppCompatActivity {
                 check = checkField(charismaText, charisma, "setCharisma")?check:false;
                 check = checkField(emailText, email, "setEmail")?check:false;
                 check = checkField(dateText, date, "setDate")?check:false;
+                String clas = (String) s.getSelectedItem();
+                if(clas ==null || (clas != null && clas.equals(""))){
+                    check = false;
+                    Toast.makeText(context, context.getResources().getString(R.string.inv_class), Toast.LENGTH_SHORT).show();
+                }
 
                 if(check){
                     presenter.setClass(s.getSelectedItem().toString());
@@ -257,6 +263,18 @@ public class Form extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+
+        adapter.add("");
+        s.setAdapter(adapter);
+        s.setSelection(adapter.getPosition(""));
+        s.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                adapter.remove("");
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
     }
 
     public Context getContext() {

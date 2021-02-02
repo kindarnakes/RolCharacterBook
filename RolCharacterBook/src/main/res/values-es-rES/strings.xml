@@ -53,4 +53,7 @@
     <string name="noDeleted">El elemento no se ha podido borrar</string>
     <string name="error_save">Los campos contienen errores</string>
     <string name="number_elements">"Elementos: "</string>
+    <string name="inv_class">Clase no válida</string>
+    <string name="date">Fecha</string>
+    <string name="char_class">Clase</string>
 </resources>

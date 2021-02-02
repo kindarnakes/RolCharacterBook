@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,10 +21,13 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
 import com.example.RolCharacterBook.model.Data;
+import com.example.RolCharacterBook.presenter.FormPresenter;
 import com.example.RolCharacterBook.presenter.SearchPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -111,11 +116,18 @@ public class Search extends AppCompatActivity {
     }
 
     public void search(View v){
-        ArrayList<Character> search = (ArrayList<Character>) presenter.search(nameSearchText.getText().toString(), dateSearchText.getText().toString(), sClass.getSelectedItem().toString());
+        String name = nameSearchText.getText().toString();
+        String date = dateSearchText.getText().toString();
+        String cclass = sClass.getSelectedItem().toString();
+        ArrayList<Character> search = (ArrayList<Character>) presenter.search(name, date, cclass);
         Intent i = getIntent();
         Bundle b = new Bundle();
         b.putParcelableArrayList("search",search);
         i.putExtra("search",b);
+        String message = "\n" + (date.equals("")? "":(context.getResources().getString(R.string.date)+": "+date + "\n")) +
+                (name.equals("")?"":(context.getResources().getString(R.string.name)+": "+name + "\n")) +
+                (cclass.equals("")?"":(context.getResources().getString(R.string.char_class)+": "+cclass+ "\n"));
+        i.putExtra("message", message);
         setResult(1, i);
         finish();
     }
@@ -124,6 +136,16 @@ public class Search extends AppCompatActivity {
         ArrayAdapter<String> ad = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ad.add("");
         sp.setAdapter(ad);
+        sp.setSelection(ad.getPosition(""));
+        sp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ad.remove("");
+                ad.notifyDataSetChanged();
+                return false;
+            }
+        });
     }
 }

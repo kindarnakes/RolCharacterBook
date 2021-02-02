@@ -58,5 +58,8 @@
     <string name="error_save">Fields contains errors</string>
     <string name="error" translatable="false">Error</string>
     <string name="number_elements">Elements:</string>
+    <string name="inv_class">Invalid Class</string>
+    <string name="date">Date</string>
+    <string name="char_class">Class</string>
 
 </resources>

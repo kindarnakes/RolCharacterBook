@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
@@ -43,6 +44,7 @@ public class List extends AppCompatActivity {
     private TextView nelements;
     private CharacterAdapter adapter;
     private Boolean loadorsearch = true;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +59,34 @@ public class List extends AppCompatActivity {
         context = this;
         recyclerView = findViewById(R.id.recycler);
         nelements = findViewById(R.id.nelements);
+        swipeContainer = findViewById(R.id.swipeContainer);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadorsearch = true;
+                loadData(adapter);
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -119,9 +143,11 @@ public class List extends AppCompatActivity {
         Log.d("RESULT", String.valueOf(resultCode));
         if(resultCode == 1){
             ArrayList<Character> chars = data.getExtras().getBundle("search").getParcelableArrayList("search");
-            for(Character c : chars) {
-                Log.d("RESULT", c.getName());
-            }
+            String msg = data.getExtras().getString("message");
+            adapter.setItems(chars);
+            adapter.notifyDataSetChanged();
+            nelements.setText(context.getResources().getString(R.string.number_elements) + chars.size() + msg);
+
         }else{
             loadorsearch = true;
         }

@@ -145,7 +145,7 @@ public class Data {
         Realm realm = Realm.getDefaultInstance();
         RealmQuery query = realm.where(Character.class);
         if(name != null && !name.equals("")){
-            query = query.like("name", name);
+            query = query.like("name", "*"+name+"*");
         }
         if(date != null && !date.equals("")){
             try {
