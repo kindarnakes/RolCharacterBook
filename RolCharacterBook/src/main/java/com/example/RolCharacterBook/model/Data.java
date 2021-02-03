@@ -47,7 +47,7 @@ public class Data {
             });
         }
             realm.executeTransaction(r -> {
-                realm.copyToRealmOrUpdate(new Example());
+                realm.copyToRealmOrUpdate(new Example()); //creamos la instancia de Example para no cargar mas los datos de ejemplo
             });
         }
     }
