@@ -164,32 +164,6 @@ public class FormPresenter {
     }
 
 
-    public Bitmap imageSelected(Intent data) {
-        // Se carga la imagen desde un objeto Bitmap
-        Uri selectedImage = data.getData();
-        String selectedPath = selectedImage.getPath();
-        Bitmap b = null;
-
-        if (selectedPath != null) {
-            // Se leen los bytes de la imagen
-            InputStream imageStream = null;
-            try {
-                // Se transformam los bytes de la imagen a un Bitma
-                imageStream = view.getContentResolver().openInputStream(selectedImage);
-                b = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(imageStream), 240, 240, false);
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //para guardar la imagen en el objeto
-                b.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                c.setPortrait(Base64.encodeToString(byteArray, Base64.DEFAULT));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return b;
-    }
-
     public void denied() {
         Snackbar snackbar = Snackbar
                 .make(view.findViewById(R.id.coordinatorLayout), context.getResources().getString(R.string.needWrite), Snackbar.LENGTH_LONG);
@@ -202,5 +176,13 @@ public class FormPresenter {
 
     public ArrayList<String> loadClass() {
         return Data.getDATA().loadClass();
+    }
+
+    public void setPortrait(String encodeToString) {
+        c.setPortrait(encodeToString);
+    }
+
+    public boolean getImage(int resultCode) {
+        return  resultCode== Activity.RESULT_OK;
     }
 }

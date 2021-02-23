@@ -10,10 +10,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +46,9 @@ import com.example.RolCharacterBook.presenter.FormPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -418,8 +423,8 @@ public class Form extends AppCompatActivity {
         switch (requestCode) {
 
             case (REQUEST_SELECT_IMAGE):
-                if (resultCode == Activity.RESULT_OK) {
-                    Bitmap bmp = presenter.imageSelected(data);
+                if (presenter.getImage(resultCode)) {
+                    Bitmap bmp = imageSelected(data);
 
                     // Se carga el Bitmap en el ImageView
                     portrait.setImageBitmap(bmp);
@@ -497,4 +502,30 @@ public class Form extends AppCompatActivity {
         btnPositive.setLayoutParams(layoutParams);
     }
 
+
+    public Bitmap imageSelected(Intent data) {
+        // Se carga la imagen desde un objeto Bitmap
+        Uri selectedImage = data.getData();
+        String selectedPath = selectedImage.getPath();
+        Bitmap b = null;
+
+        if (selectedPath != null) {
+            // Se leen los bytes de la imagen
+            InputStream imageStream = null;
+            try {
+                // Se transformam los bytes de la imagen a un Bitma
+                imageStream = getContentResolver().openInputStream(selectedImage);
+                b = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(imageStream), 240, 240, false);
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //para guardar la imagen en el objeto
+                b.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                presenter.setPortrait(Base64.encodeToString(byteArray, Base64.DEFAULT));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return b;
+    }
 }
