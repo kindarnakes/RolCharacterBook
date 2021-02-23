@@ -1,6 +1,7 @@
 package com.example.RolCharacterBook.view;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.example.RolCharacterBook.R;
 import com.example.RolCharacterBook.model.Character;
@@ -185,6 +188,11 @@ public class Form extends AppCompatActivity {
 
                 } else {
                     //no tenemos permiso
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ActivityCompat.requestPermissions(Form.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, FormPresenter.CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
+                        // Una vez que se pide aceptar o rechazar el permiso se ejecuta el método "onRequestPermissionsResult" para manejar la respuesta
+                        // Si el usuario marca "No preguntar más" no se volverá a mostrar este diálogo
+                    }
                     presenter.denied();
                 }
             }

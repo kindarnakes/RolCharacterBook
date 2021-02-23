@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -94,8 +95,7 @@ public class List extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 presenter.clickElement(null);
-                Intent intent = new Intent(List.this, Form.class);
-                startActivity(intent);
+                presenter.addElement();
             }
         });
 
@@ -156,8 +156,7 @@ public class List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 presenter.clickElement(presenter.getElement(recyclerView.getChildAdapterPosition(v)));
-                Intent intent = new Intent(List.this, Form.class);
-                startActivity(intent);
+                presenter.addElement();
 
             }
         });
@@ -174,7 +173,12 @@ public class List extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                presenter.swiped(viewHolder, Data.getDATA().getItems(), adapter, nelements);
+                int pos = presenter.swiped(viewHolder, Data.getDATA().getItems(), adapter, nelements);
+                if(pos >= 0){
+                    Toast.makeText(context, context.getResources().getString(R.string.deleted), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, context.getResources().getString(R.string.noDeleted) + items.get(pos).getName(), Toast.LENGTH_SHORT).show();
+                }
 
             }
         };

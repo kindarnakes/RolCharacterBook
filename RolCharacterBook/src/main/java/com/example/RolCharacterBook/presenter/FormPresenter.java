@@ -144,11 +144,7 @@ public class FormPresenter {
             // Permiso denegado
             // A partir de Marshmallow (6.0) se pide aceptar o rechazar el permiso en tiempo de ejecución
             // En las versiones anteriores no es posible hacerlo
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
-                // Una vez que se pide aceptar o rechazar el permiso se ejecuta el método "onRequestPermissionsResult" para manejar la respuesta
-                // Si el usuario marca "No preguntar más" no se volverá a mostrar este diálogo
-            }
+
             return false;
         } else {
             // Permiso aceptado
