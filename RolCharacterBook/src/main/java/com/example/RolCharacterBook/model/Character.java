@@ -36,6 +36,7 @@ public class Character extends RealmObject implements Parcelable {
     private String portrait;
 
     public Character() {
+        this.UUID = java.util.UUID.randomUUID().toString();
     }
 
 
@@ -52,7 +53,11 @@ public class Character extends RealmObject implements Parcelable {
         this.isPlayer = true;
         this.playDate = new Date();
         this.portrait = portrait;
-        this.UUID = id;
+        if (id != null) {
+            this.UUID = id;
+        } else {
+            this.UUID = java.util.UUID.randomUUID().toString();
+        }
     }
 
     public Character(String name, String email, String charClass, Integer strength, Integer dexterity, Integer constitution,
@@ -305,18 +310,14 @@ public class Character extends RealmObject implements Parcelable {
 
         Character character = (Character) o;
 
-        return UUID.equals(character.UUID);
+        return UUID.matches(character.UUID);
     }
+
+
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + strength.hashCode();
-        result = 31 * result + dexterity.hashCode();
-        result = 31 * result + constitution.hashCode();
-        result = 31 * result + intelligence.hashCode();
-        result = 31 * result + wisdom.hashCode();
-        result = 31 * result + charisma.hashCode();
+        int result = UUID.hashCode();
         return result;
     }
 

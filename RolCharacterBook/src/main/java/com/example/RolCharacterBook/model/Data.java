@@ -16,11 +16,12 @@ public class Data {
     private static final Data DATA = new Data();
     private Character actual;
     private ArrayList<Character> items;
+    private Realm realm;
 
 
     private Data() {
         this.items = new ArrayList();
-        Realm realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
 
         //Para cargar los datos de ejemplo usamos una clase que guardaremos en la base de datos, una vez que exista la instancia de la clase ya no los cargara mas, para volver a
         //insertarlos borramos la base de datos
@@ -69,8 +70,8 @@ public class Data {
         return items;
     }
 
-    public boolean remove(Character c) {
-        Realm realm = Realm.getDefaultInstance();
+    public synchronized boolean remove(Character c) {
+        realm = Realm.getDefaultInstance();
 
         realm.executeTransaction(r -> {
             realm.where(Character.class).equalTo("UUID", c.getId()).findFirst().deleteFromRealm();
@@ -81,16 +82,13 @@ public class Data {
         return remove;
     }
 
-    public boolean add(Character c) {
-        return items.add(c);
-    }
 
-    public void save(Character c) {
+    public synchronized void save(Character c) {
 
-        Realm realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
 
         realm.executeTransaction(r -> {
-            realm.copyToRealmOrUpdate(c);
+            Character newC = realm.copyToRealmOrUpdate(c);
             if (!items.contains(c)) {
                 items.add(c);
             }
@@ -99,7 +97,7 @@ public class Data {
         realm.close();
     }
 
-    public ArrayList<Character> loadAll() {
+    public synchronized ArrayList<Character> loadAll() {
 
         ArrayList<Character> allChar = new ArrayList<>();
         ArrayList<Character> usedList = new ArrayList<>();
@@ -121,10 +119,10 @@ public class Data {
         return usedList;
     }
 
-    public Character getById(String id) {
+    public synchronized Character getById(String id) {
         Character c = null;
 
-        Realm realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
 
         c = realm.where(Character.class)
                 .equalTo("UUID", id)
@@ -136,8 +134,8 @@ public class Data {
     }
 
 
-    public ArrayList<String> loadClass() {
-        Realm realm = Realm.getDefaultInstance();
+    public synchronized ArrayList<String> loadClass() {
+        realm = Realm.getDefaultInstance();
         ArrayList<String> s = new ArrayList<>();
         ArrayList<ClassString> c = new ArrayList<>(realm.where(ClassString.class).findAll());
         for (ClassString aux : c) {
@@ -146,10 +144,10 @@ public class Data {
         return s;
     }
 
-    public void saveClass(String s) {
+    public synchronized void saveClass(String s) {
         ClassString c = new ClassString();
         c._name = s;
-        Realm realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
 
         realm.executeTransaction(r -> {
             realm.copyToRealmOrUpdate(c);
@@ -158,9 +156,9 @@ public class Data {
         realm.close();
     }
 
-    public List<Character> search(String name, String date, String charClass) {
+    public synchronized List<Character> search(String name, String date, String charClass) {
         ArrayList<Character> list = new ArrayList<>();
-        Realm realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
         RealmQuery query = realm.where(Character.class);
         if (name != null && !name.equals("")) {
             query = query.like("name", "*" + name + "*");

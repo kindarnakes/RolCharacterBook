@@ -120,9 +120,6 @@ public class FormPresenter {
         c.setPlayer(npc);
     }
 
-    public void generateUUID() {
-        c.generateUUID();
-    }
 
     public void eraseYes() {
         Data.getDATA().remove(c);

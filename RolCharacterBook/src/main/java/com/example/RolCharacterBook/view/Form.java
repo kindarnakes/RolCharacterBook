@@ -167,7 +167,6 @@ public class Form extends AppCompatActivity {
 
                 if (check) {
                     presenter.setClass(s.getSelectedItem().toString());
-                    presenter.generateUUID();
                     presenter.save();
                     presenter.finish();
                 } else {
