@@ -14,8 +14,6 @@ import com.example.RolCharacterBook.view.List;
 
 import java.util.ArrayList;
 
-import io.realm.RealmObject;
-
 public class ListPresenter {
 
     private Context context;
@@ -30,9 +28,9 @@ public class ListPresenter {
     }
 
     public void clickElement(Character element) {
-        if(element != null) {
+        if (element != null) {
             Data.getDATA().getById(element.getId());
-        }else{
+        } else {
             Data.getDATA().setActual(element);
         }
     }
@@ -53,8 +51,13 @@ public class ListPresenter {
         }
     }
 
-    public ArrayList<Character> load(){
+    public ArrayList<Character> load() {
         return Data.getDATA().loadAll();
+    }
+
+
+    public Character getElement(int pos) {
+        return Data.getDATA().getItems().get(pos);
     }
 
 

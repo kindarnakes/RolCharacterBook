@@ -2,18 +2,15 @@ package com.example.RolCharacterBook.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -30,10 +27,6 @@ import com.example.RolCharacterBook.presenter.ListPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
 
 public class List extends AppCompatActivity {
 
@@ -141,14 +134,14 @@ public class List extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("RESULT", String.valueOf(resultCode));
-        if(resultCode == 1){
+        if (resultCode == 1) {
             ArrayList<Character> chars = data.getExtras().getBundle("search").getParcelableArrayList("search");
             String msg = data.getExtras().getString("message");
             adapter.setItems(chars);
             adapter.notifyDataSetChanged();
             nelements.setText(context.getResources().getString(R.string.number_elements) + chars.size() + msg);
 
-        }else{
+        } else {
             loadorsearch = true;
         }
 
@@ -162,7 +155,7 @@ public class List extends AppCompatActivity {
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.clickElement(Data.getDATA().getItems().get(recyclerView.getChildAdapterPosition(v)));
+                presenter.clickElement(presenter.getElement(recyclerView.getChildAdapterPosition(v)));
                 Intent intent = new Intent(List.this, Form.class);
                 startActivity(intent);
 
@@ -192,12 +185,13 @@ public class List extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(loadorsearch) {
+        if (loadorsearch) {
             loadData(adapter);
-        }else {
+        } else {
             loadorsearch = true;
         }
     }

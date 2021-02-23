@@ -27,7 +27,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -108,10 +107,10 @@ public class Form extends AppCompatActivity {
             }
         });
 
-        arraySpinner = Data.getDATA().loadClass();
-        setSpinner(arraySpinner);
 
         presenter = new FormPresenter(this);
+        arraySpinner = presenter.loadClass();
+        setSpinner(arraySpinner);
 
         name = findViewById(R.id.name);
         nameText = findViewById(R.id.nameText);
@@ -139,7 +138,7 @@ public class Form extends AppCompatActivity {
 
         delete.setVisibility(View.INVISIBLE);
 
-        player.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()  {
+        player.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 presenter.setNPC(isChecked);
@@ -151,27 +150,27 @@ public class Form extends AppCompatActivity {
             public void onClick(View v) {
                 //validate all fields, if all validates, object is set
                 boolean check = checkField(nameText, name, "setName");
-                check = checkField(strengthText, strength, "setStrength")?check:false;
-                check = checkField(strengthText, strength, "setStrength")?check:false;
-                check = checkField(dexterityText, dexterity, "setDexterity")?check:false;
-                check = checkField(constitutionText, constitution, "setConstitution")?check:false;
-                check = checkField(intelligenceText, intelligence, "setIntelligence")?check:false;
-                check = checkField(wisdomText, wisdom, "setWisdom")?check:false;
-                check = checkField(charismaText, charisma, "setCharisma")?check:false;
-                check = checkField(emailText, email, "setEmail")?check:false;
-                check = checkField(dateText, date, "setDate")?check:false;
+                check = checkField(strengthText, strength, "setStrength") ? check : false;
+                check = checkField(strengthText, strength, "setStrength") ? check : false;
+                check = checkField(dexterityText, dexterity, "setDexterity") ? check : false;
+                check = checkField(constitutionText, constitution, "setConstitution") ? check : false;
+                check = checkField(intelligenceText, intelligence, "setIntelligence") ? check : false;
+                check = checkField(wisdomText, wisdom, "setWisdom") ? check : false;
+                check = checkField(charismaText, charisma, "setCharisma") ? check : false;
+                check = checkField(emailText, email, "setEmail") ? check : false;
+                check = checkField(dateText, date, "setDate") ? check : false;
                 String clas = (String) s.getSelectedItem();
-                if(clas ==null || (clas != null && clas.equals(""))){
+                if (clas == null || (clas != null && clas.equals(""))) {
                     check = false;
                     Toast.makeText(context, context.getResources().getString(R.string.inv_class), Toast.LENGTH_SHORT).show();
                 }
 
-                if(check){
+                if (check) {
                     presenter.setClass(s.getSelectedItem().toString());
                     presenter.generateUUID();
                     presenter.save();
                     presenter.finish();
-                }else{
+                } else {
                     dialog(context.getResources().getString(R.string.error), context.getResources().getString(R.string.error_save), context.getResources().getString(R.string.acept));
                 }
 
@@ -234,7 +233,7 @@ public class Form extends AppCompatActivity {
 
         if (presenter.isInit()) {
             Character c = presenter.getC();
-            if(!arraySpinner.contains(c.getCharClass())){
+            if (!arraySpinner.contains(c.getCharClass())) {
                 arraySpinner.add(c.getCharClass());
                 setSpinner(arraySpinner);
             }
@@ -423,8 +422,7 @@ public class Form extends AppCompatActivity {
     }
 
 
-
-    private void listenerCheckField(TextInputEditText editText, TextInputLayout layoutText, String method){
+    private void listenerCheckField(TextInputEditText editText, TextInputLayout layoutText, String method) {
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -449,14 +447,14 @@ public class Form extends AppCompatActivity {
         });
     }
 
-    private boolean checkField(TextInputEditText text, TextInputLayout layout, String method){
+    private boolean checkField(TextInputEditText text, TextInputLayout layout, String method) {
         boolean correct = false;
         Method m = null;
         try {
             m = FormPresenter.class.getDeclaredMethod(method, String.class);
             int error = (int) m.invoke(presenter, text.getText().toString());
             layout.setError(presenter.getError(error));
-            if(error == 0) {
+            if (error == 0) {
                 correct = true;
             }
         } catch (NoSuchMethodException e) {
@@ -471,7 +469,7 @@ public class Form extends AppCompatActivity {
 
     }
 
-    private void dialog(String title, String message, String button){
+    private void dialog(String title, String message, String button) {
         AlertDialog.Builder builder = new AlertDialog.Builder(Form.this);
         builder.setTitle(title);
         builder.setMessage(message);

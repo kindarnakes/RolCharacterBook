@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class FormPresenter {
 
@@ -111,14 +112,15 @@ public class FormPresenter {
         return c.setPlayDate(date);
     }
 
-    public void setClass(String c){
+    public void setClass(String c) {
         this.c.setCharClass(c);
     }
 
-    public void setNPC(Boolean npc){
+    public void setNPC(Boolean npc) {
         c.setPlayer(npc);
     }
-    public void generateUUID(){
+
+    public void generateUUID() {
         c.generateUUID();
     }
 
@@ -185,7 +187,7 @@ public class FormPresenter {
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //para guardar la imagen en el objeto
                 b.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
                 c.setPortrait(Base64.encodeToString(byteArray, Base64.DEFAULT));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -201,7 +203,11 @@ public class FormPresenter {
         snackbar.show();
     }
 
-    public void save(){
-         Data.getDATA().save(c);
+    public void save() {
+        Data.getDATA().save(c);
+    }
+
+    public ArrayList<String> loadClass() {
+        return Data.getDATA().loadClass();
     }
 }

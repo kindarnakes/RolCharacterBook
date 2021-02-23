@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
-import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -70,9 +69,9 @@ public class Character extends RealmObject implements Parcelable {
         this.isPlayer = isPlayer;
         this.playDate = playDate;
         this.portrait = portrait;
-        if(id != null) {
+        if (id != null) {
             this.UUID = id;
-        }else{
+        } else {
             this.UUID = java.util.UUID.randomUUID().toString();
         }
     }
@@ -86,8 +85,8 @@ public class Character extends RealmObject implements Parcelable {
         this.UUID = id;
     }
 
-    public void generateUUID(){
-        if(this.UUID == null) {
+    public void generateUUID() {
+        if (this.UUID == null) {
             this.UUID = java.util.UUID.randomUUID().toString();
         }
     }
