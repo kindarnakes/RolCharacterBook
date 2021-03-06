@@ -61,5 +61,7 @@
     <string name="inv_class">Invalid selection Class</string>
     <string name="date">Date</string>
     <string name="char_class">Class</string>
+    <string name="title_activity_help">Help</string>
+    <!-- Strings used for fragments for navigation -->
 
 </resources>

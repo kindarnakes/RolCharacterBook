@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_form"
+        app:menu="@menu/menu_others"
         app:popupTheme="@style/Theme.Ejemplo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

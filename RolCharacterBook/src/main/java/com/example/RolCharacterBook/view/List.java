@@ -123,6 +123,9 @@ public class List extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.help:
+                intent = new Intent(List.this, Help.class);
+                intent.putExtra("page", 1);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

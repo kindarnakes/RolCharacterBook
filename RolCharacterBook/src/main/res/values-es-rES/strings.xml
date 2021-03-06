@@ -56,4 +56,5 @@
     <string name="inv_class">Clase no selecionada</string>
     <string name="date">Fecha</string>
     <string name="char_class">Clase</string>
+    <string name="title_activity_help">Ayuda</string>
 </resources>

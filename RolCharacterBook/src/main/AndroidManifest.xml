@@ -3,6 +3,7 @@
     package="com.example.RolCharacterBook">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -12,10 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".view.Help"
+            android:label="@string/title_activity_help"
+            android:theme="@style/Theme.Ejemplo.NoActionBar"></activity>
+        <activity
             android:name=".view.Search"
             android:label="@string/title_activity_search"
             android:parentActivityName=".view.List"
-            android:theme="@style/Theme.Ejemplo.NoActionBar"></activity>
+            android:theme="@style/Theme.Ejemplo.NoActionBar" />
         <activity
             android:name=".view.About"
             android:label="@string/title_activity_about"
