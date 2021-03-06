@@ -1,0 +1,40 @@
+.buttons-bar{
+    display: block; 
+    text-align: center; 
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+body{
+    background-color: blue;
+    color: white;
+}
+
+.top-buttons-bar{
+    text-align: center;
+    padding-top: 1em;
+    color: red;
+    font-size: 2em;
+    font-family: "calibri", Garamond, 'Courier';
+}
+
+.top-buttons-bar img{
+    max-width: 5em;
+    max-height: 5em;
+}
+
+.to-left{
+    float: left;
+}
+
+.to-right{
+    float: right;
+}
+
+footer{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    text-decoration: double;
+    color: red;
+}
