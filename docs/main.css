@@ -38,3 +38,13 @@ footer{
     text-decoration: double;
     color: red;
 }
+
+div{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.main_img{
+    text-align: center;
+}
+
