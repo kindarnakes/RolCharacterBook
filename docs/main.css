@@ -44,7 +44,11 @@ div{
     padding-bottom: 0.5em;
 }
 
-img{
+.row img{
     max-width: 50%;
     max-height: 50%;
 }
+.row p{
+    font-size: 50%;
+}
+
