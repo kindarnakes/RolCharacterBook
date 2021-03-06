@@ -43,3 +43,8 @@ div{
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 }
+
+.row img{
+    max-width: 50%;
+    max-height: 50%;
+}
