@@ -47,4 +47,7 @@ div{
 .main_img{
     text-align: center;
 }
-
+.versions{
+    padding-left: 4em;
+    max-width: 90%;
+}
