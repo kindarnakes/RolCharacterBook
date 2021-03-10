@@ -51,3 +51,9 @@ div{
     padding-left: 4em;
     max-width: 90%;
 }
+
+.no-decor-links, .no-decor-links:focus {
+    text-decoration: none;
+    color: white !important;
+}
+
