@@ -7,4 +7,5 @@ public class ClassString extends RealmObject {
 
     @PrimaryKey
     public String _name;
+
 }
